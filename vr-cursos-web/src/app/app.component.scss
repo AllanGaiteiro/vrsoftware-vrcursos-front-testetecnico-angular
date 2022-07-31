@@ -1,0 +1,16 @@
+@import '../styles/variables.scss';
+
+/* variable */
+$container-width: calc(100% - ($sidenav-width + $body-margin * 2));
+$container-right: 0px;
+
+#container, body{
+    background-color: $primary-color;
+}
+
+.main {
+    position: absolute;
+    width: $container-width;
+    right: $container-right;
+    padding: 10px;
+}

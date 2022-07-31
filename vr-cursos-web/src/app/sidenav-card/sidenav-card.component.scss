@@ -1,15 +1,8 @@
 @import '../../styles/variables.scss';
 
-/*
-$primary-palette: #212130;
-$secondy-palette: #3C2E67;
-$white-palette: #FFFFFF;
-$acent-palette: #3C2E67;
-$warn-palette: #FF4B4B;
-*/
 /* variable */
-$spaco: 15px;
-$width: 240px;
+$spaco: $body-margin;
+$width: $sidenav-width;
 $height: calc(100% - (2 * $spaco));
 $btn-width: 200px;
 $btn-height: 60px;
@@ -20,8 +13,8 @@ mat-card {
     height: $height;
     left: $spaco;
     top: $spaco;
-    background-color: $primary-palette;
-    color: $white-palette;
+    background-color: $primary-color;
+    color: $white-color;
     box-shadow: 0px 0px 3px 1px rgba(139, 139, 139, 0.19);
     border-radius: 10px;
     padding: 0 10px;
@@ -34,7 +27,7 @@ mat-card {
     #card-user {
         padding: 10px;
         margin: 10px 0;
-        background-color: $secondy-palette;
+        background-color: $secondy-color;
         height: $btn-height;
         border-radius: 10px;
 
@@ -66,8 +59,8 @@ a {
     display: block;
     width: $btn-width;
     height: $btn-height;
-    color: $white-palette;
-    background-color: $primary-palette;
+    color: $white-color;
+    background-color: $primary-color;
     border: none;
     text-align: left;
     line-height: $btn-height;
@@ -76,5 +69,5 @@ a {
 }
 
 a:hover {
-    background-color: $secondy-palette;
+    background-color: $secondy-color;
 }
