@@ -1,0 +1,15 @@
+<mat-card>
+    <img src="../../assets/marca.svg">
+    <div id="card-user" class="d-flex w-100">
+        <div>
+            <img src="../../assets/admin-A.svg">
+        </div>
+        <p>Admin</p>
+    </div>
+
+    <div class="d-block" id="menu">
+        <a mat-flat-button *ngFor="let item of menu.getMenu()" [routerLink]="['/',item.state]">
+            <mat-icon class="mat-18">{{item.icon}}</mat-icon>
+            {{item.name}}</a>
+    </div>
+</mat-card>

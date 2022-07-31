@@ -5,12 +5,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { Menu } from './core/menu-admin/Menu';
 import { SharedModule } from './shared/shared.module';
-import { TableBasicComponent } from './shared/table-basic/table-basic.component';
+import { SidenavCardComponent } from './sidenav-card/sidenav-card.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    SidenavCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,7 @@ import { TableBasicComponent } from './shared/table-basic/table-basic.component'
     SharedModule
   ],
   exports:[SharedModule],
-  providers: [],
+  providers: [Menu],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
