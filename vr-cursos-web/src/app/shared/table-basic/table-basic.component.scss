@@ -1,12 +1,5 @@
 @import '../../../styles/variables.scss';
 
-/*
-$primary-palette: #212130;
-$secondy-palette: #3C2E67;
-$white-palette: #FFFFFF;
-$acent-palette: #3C2E67;
-$warn-palette: #FF4B4B;
-*/
 
 mat-card {
     width: 900px;
@@ -16,7 +9,6 @@ mat-card {
     border-radius: 30px;
 }
 table {
-    /* table */
     margin: 0 auto;
     background-color: $primary-palette;
     color: $white-palette;
