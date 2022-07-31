@@ -1,0 +1,80 @@
+@import '../../styles/variables.scss';
+
+/*
+$primary-palette: #212130;
+$secondy-palette: #3C2E67;
+$white-palette: #FFFFFF;
+$acent-palette: #3C2E67;
+$warn-palette: #FF4B4B;
+*/
+/* variable */
+$spaco: 15px;
+$width: 240px;
+$height: calc(100% - (2 * $spaco));
+$btn-width: 200px;
+$btn-height: 60px;
+
+mat-card {
+    position: fixed;
+    width: $width;
+    height: $height;
+    left: $spaco;
+    top: $spaco;
+    background-color: $primary-palette;
+    color: $white-palette;
+    box-shadow: 0px 0px 3px 1px rgba(139, 139, 139, 0.19);
+    border-radius: 10px;
+    padding: 0 10px;
+
+    img {
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    #card-user {
+        padding: 10px;
+        margin: 10px 0;
+        background-color: $secondy-palette;
+        height: $btn-height;
+        border-radius: 10px;
+
+        div img {
+            margin: 0 10px 0px 0px;
+            padding: 0;
+            height:calc($btn-height - 20px);
+        }
+
+        p {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: calc($btn-height - 20px);
+            align-items: center;
+            vertical-align: center;
+        }
+    }
+
+    #menu {
+        padding: 10px;
+        margin: 10px 0;
+    }
+}
+
+a {
+    margin: 0;
+    display: block;
+    width: $btn-width;
+    height: $btn-height;
+    color: $white-palette;
+    background-color: $primary-palette;
+    border: none;
+    text-align: left;
+    line-height: $btn-height;
+    border-radius: 10px;
+
+}
+
+a:hover {
+    background-color: $secondy-palette;
+}

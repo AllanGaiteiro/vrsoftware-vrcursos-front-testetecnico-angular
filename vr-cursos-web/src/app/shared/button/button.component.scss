@@ -1,0 +1,11 @@
+@import '../../../styles/variables.scss';
+
+.acent-collor{
+    background-color:$acent-palette;
+}
+.warn-collor{
+    background-color:$warn-palette;
+}
+button{
+    color: $white-palette;
+}
