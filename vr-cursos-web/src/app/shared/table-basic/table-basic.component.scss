@@ -1,0 +1,25 @@
+@import '../../../styles/variables.scss';
+
+/*
+$primary-palette: #212130;
+$secondy-palette: #3C2E67;
+$white-palette: #FFFFFF;
+$acent-palette: #3C2E67;
+$warn-palette: #FF4B4B;
+*/
+
+mat-card {
+    width: 900px;
+    background-color: $primary-palette;
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 30px;
+}
+table {
+    /* card table-aluno */
+    margin: 0 auto;
+    background-color: $primary-palette;
+    color: $white-palette;
+    width: 850px;
+    height: 622px;
+}
