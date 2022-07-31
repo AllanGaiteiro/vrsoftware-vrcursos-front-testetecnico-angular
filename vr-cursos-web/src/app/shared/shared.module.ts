@@ -1,23 +1,30 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TableBasicComponent } from './table-basic/table-basic.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatCardModule} from '@angular/material/card';
 
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+
+import { ButtonComponent } from './button/button.component';
+import { TableBasicComponent } from './table-basic/table-basic.component';
 @NgModule({
   declarations: [
-    TableBasicComponent
+    TableBasicComponent,
+    ButtonComponent
   ],
   imports: [
     CommonModule,
     MatTableModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule
   ],
   exports: [
     CommonModule,
     MatTableModule,
     MatCardModule,
-    TableBasicComponent
+    MatButtonModule,
+    TableBasicComponent,
+    ButtonComponent
   ],
 })
 export class SharedModule { }
