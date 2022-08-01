@@ -7,6 +7,7 @@ import { AdminRoutes } from './admin.routes';
 import { CoursesComponent } from './pages/courses/courses.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -19,7 +20,9 @@ import { RegistrationComponent } from './pages/registration/registration.compone
   ],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild(AdminRoutes)
-  ]
+  ],
+  exports:[SharedModule],
 })
 export class AdminModule { }
