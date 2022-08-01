@@ -1,28 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
-/**
- * @title Basic use of `<table mat-table>`
- */
 
 @Component({
   selector: 'app-table-basic',
@@ -30,21 +7,31 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./table-basic.component.scss'],
 })
 export class TableBasicComponent implements OnInit {
-  displayedColumnsObj: {name:string,value:string}[] = 
-  [
-    {name:'position',value:"Posção"}, 
-    {name:'name',value:"Nome"}, 
-    {name:'weight',value:"Altura"}, 
-    {name:'symbol',value:"Simbolo"}
-  ];
+  @Input() displayedColumnsObj: { name: string, value: string }[] = [];
+  @Input() data: any[] = [];
+  @Input() actions: string[] = [];
   displayedColumns: string[] = []
-  dataSource = ELEMENT_DATA;
+  classColumn: string = 'col-4';
   constructor() {
-    this.displayedColumns = this.displayedColumnsObj.map(({name}) => name);
-   }
-
-  ngOnInit(): void {
-    console.log(this.dataSource)
   }
 
+  ngOnInit(): void {
+    console.log('app-table-basic', this.displayedColumnsObj);
+    console.log('app-table-basic', this.data);
+
+    // add column action
+    if (this.actions.length > 0) {
+      this.displayedColumnsObj.push({ name: 'actions', value: 'Ações' });
+    }
+    this.displayedColumns = this.getDisplayedColumns();
+    this.classColumn = this.getClassColumn();
+  }
+
+  getDisplayedColumns(): string[] {
+    return this.displayedColumnsObj.length > 0 ? this.displayedColumnsObj.map(({ name }) => name) : [];
+  }
+
+  getClassColumn(): string {
+    return 'col-' + (12 / this.displayedColumnsObj.length)
+  }
 }
