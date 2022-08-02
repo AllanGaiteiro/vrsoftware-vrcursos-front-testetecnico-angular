@@ -1,17 +1,25 @@
-<form *ngIf="formFields" [formGroup]="formGroup" class="mt-2 p-2" style="width: 850px;">
+<form *ngIf="formFields" [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="mt-2 p-2" style="width: 850px;">
     <h3>{{formName}}</h3>
     <hr>
-    <div *ngFor="let field of formFields" >
+    <div *ngFor="let field of formFields">
         <mat-form-field class="forms">
-            <input matInput   *ngIf="!['ementa'].includes(field.name)" [formControlName]="field.name"
-                placeholder="{{field.value}}" required>
-            <textarea matInput *ngIf="['ementa'].includes(field.name)" [formControlName]="field.name"
-                placeholder="{{field.value}}" required></textarea>
+            <!---Form Field input--->
+            <input matInput *ngIf="field.type === 'input'" [formControlName]="field.name" placeholder="{{field.value}}">
+
+            <!---Form Field textarea--->
+            <textarea matInput *ngIf="field.type === 'textarea'" [formControlName]="field.name"
+                placeholder="{{field.value}}"></textarea>
+
+            <!---Errors--->
+            <mat-error *ngIf="formGroup.controls[field.name].getError('required')">
+                Campo Obrigatório
+            </mat-error>
         </mat-form-field>
     </div>
     <div class="d-flex justify-content-end">
-        <app-button [action]="'back'"></app-button>
-        <app-button [action]="'save'"></app-button>
+        <div *ngFor="let item of actions">
+            <app-button [action]="item" [disable]="formGroup.invalid"></app-button>
+        </div>
     </div>
-    
+
 </form>
