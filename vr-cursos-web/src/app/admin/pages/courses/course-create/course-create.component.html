@@ -1,1 +1,9 @@
-<p>course-create works!</p>
+<div>
+    <!---Forms-[formControl]=""-->
+
+    <mat-card *ngIf="formFields.length > 0">
+        <app-form-basic [formGroup]="formGroup" [formFields]="formFields" [formName]="'Novo Curso'" (action)="createCourse()"></app-form-basic>
+    </mat-card>
+    
+
+</div>
