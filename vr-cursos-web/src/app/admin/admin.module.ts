@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { AdminRoutes } from './admin.routes';
@@ -23,10 +22,9 @@ import { CourseCreateComponent } from './pages/courses/course-create/course-crea
     CourseCreateComponent
   ],
   imports: [
-    CommonModule,
     SharedModule,
     RouterModule.forChild(AdminRoutes)
   ],
-  exports:[SharedModule],
+  exports: [SharedModule],
 })
 export class AdminModule { }

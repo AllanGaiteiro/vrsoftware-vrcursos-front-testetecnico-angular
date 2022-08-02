@@ -1,0 +1,17 @@
+<form *ngIf="formFields" [formGroup]="formGroup" class="mt-2 p-2" style="width: 850px;">
+    <h3>{{formName}}</h3>
+    <hr>
+    <div *ngFor="let field of formFields" >
+        <mat-form-field class="forms">
+            <input matInput   *ngIf="!['ementa'].includes(field.name)" [formControlName]="field.name"
+                placeholder="{{field.value}}" required>
+            <textarea matInput *ngIf="['ementa'].includes(field.name)" [formControlName]="field.name"
+                placeholder="{{field.value}}" required></textarea>
+        </mat-form-field>
+    </div>
+    <div class="d-flex justify-content-end">
+        <app-button [action]="'back'"></app-button>
+        <app-button [action]="'save'"></app-button>
+    </div>
+    
+</form>
