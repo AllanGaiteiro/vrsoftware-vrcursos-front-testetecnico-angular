@@ -1,5 +1,4 @@
-# NestJs-Angular-TesteTecnico-VR-Cursos
-
+# Angular-TesteTecnico-VR-Cursos
 
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/AllanGaiteiro/NestJs-Angular-TesteTecnico-VR-Cursos?style=for-the-badge)
@@ -45,4 +44,4 @@ Escolhi Uma interface simples e minimalista, para facilitar vou deixar o link do
 
 Prototipo: [clique aki](https://www.figma.com/proto/xySk0dp8tY0y0SQQG0CUEu/vr-courses?node-id=10%3A479&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=10%3A235)
 
-[⬆ Voltar ao topo](#NestJs-Angular-TesteTecnico-VR-Cursos)<br>
+[⬆ Voltar ao topo](#Angular-TesteTecnico-VR-Cursos)<br>
