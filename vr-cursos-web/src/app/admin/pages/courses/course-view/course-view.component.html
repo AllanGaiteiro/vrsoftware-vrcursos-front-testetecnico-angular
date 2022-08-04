@@ -1,0 +1,9 @@
+<div>
+    <!---Card Form-->
+    <mat-card *ngIf="formFields.length > 0">
+        <app-form-basic [formGroup]="formGroup" [formFields]="formFields" [formName]="'Curso #' + course.codigo || ''"
+            [actions]="['save']" (newEventSubmit)="updateCourse($event)"></app-form-basic>
+    </mat-card>
+
+    <!--TO-DO:Table students--->
+</div>

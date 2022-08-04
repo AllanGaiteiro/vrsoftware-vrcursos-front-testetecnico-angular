@@ -1,0 +1,5 @@
+<div>
+    <app-table-basic *ngIf="displayedColumnsObj.length > 0 && dataSource.length > 0"
+        [displayedColumnsObj]="displayedColumnsObj" [data]="dataSource"
+        [actions]="['view','delete']"></app-table-basic>
+</div>

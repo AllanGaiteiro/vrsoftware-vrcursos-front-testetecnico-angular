@@ -6,8 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
-  @Input() action: string = 'view';
-  @Input() name: string = 'Cliente';
+  @Input() action: string = '';
+  @Input() name: string = '';
+  @Input() disable: boolean = false;
 
   settings: {
     name: string;
@@ -42,6 +43,9 @@ export class ButtonComponent implements OnInit {
     }
     if (this.action === 'save') {
       return 'Salvar';
+    }
+    if (this.action === 'back') {
+      return 'Voltar';
     }
     return 'Botão'
   }
