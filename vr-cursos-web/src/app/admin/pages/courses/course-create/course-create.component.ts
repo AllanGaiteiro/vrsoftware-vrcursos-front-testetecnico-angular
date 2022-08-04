@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Course } from 'src/app/core/models/course/course';
+import { CourseService } from '../course.service';
 
 @Component({
   selector: 'app-course-create',
@@ -12,7 +13,10 @@ export class CourseCreateComponent implements OnInit {
     name: string, value: string, type: string
   }[];
   formGroup: FormGroup;
-  constructor(private fb: FormBuilder) {
+  course?: Course;
+  constructor(
+    private fb: FormBuilder,
+    private service: CourseService) {
     this.formGroup = this.createFormCourse(new Course());
     this.formFields = [
       { name: 'descricao', value: 'Descrição', type: 'input' },
@@ -29,7 +33,12 @@ export class CourseCreateComponent implements OnInit {
     })
   }
 
-  createCourse(course: Course): void {
-    console.log(course)
+  async createCourse(course: Course): Promise<void> {
+    try {
+      console.log('Course Create - Success');
+      await this.service.create(course);
+    } catch (error) {
+      console.error('Course Create - Error ocurred', error);
+    }
   }
 }
