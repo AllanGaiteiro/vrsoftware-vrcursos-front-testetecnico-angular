@@ -16,8 +16,6 @@ export class TableBasicComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('app-table-basic', this.displayedColumnsObj);
-    console.log('app-table-basic', this.data);
 
     // add column action
     if (this.actions.length > 0) {
