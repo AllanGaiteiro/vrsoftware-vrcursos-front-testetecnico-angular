@@ -1,5 +1,5 @@
 export class Course {
-    public codigo!: string;
+    public codigo!: number;
     public descricao!: string;
     public ementa!: string;
 
