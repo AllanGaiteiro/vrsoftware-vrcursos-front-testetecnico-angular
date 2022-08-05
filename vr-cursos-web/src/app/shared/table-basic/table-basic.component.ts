@@ -7,11 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./table-basic.component.scss'],
 })
 export class TableBasicComponent implements OnInit {
-  @Input() displayedColumnsObj: { name: string, value: string }[] = [];
+  @Input() displayedColumnsObj: { name: string, value: string, length: number }[] = [];
   @Input() data: any[] = [];
   @Input() actions: string[] = [];
   displayedColumns: string[] = []
-  classColumn: string = 'col-4';
   constructor() {
   }
 
@@ -19,17 +18,16 @@ export class TableBasicComponent implements OnInit {
 
     // add column action
     if (this.actions.length > 0) {
-      this.displayedColumnsObj.push({ name: 'actions', value: 'Ações' });
+      this.displayedColumnsObj.push({ name: 'actions', value: 'Ações', length: 2 });
     }
     this.displayedColumns = this.getDisplayedColumns();
-    this.classColumn = this.getClassColumn();
   }
 
   getDisplayedColumns(): string[] {
     return this.displayedColumnsObj.length > 0 ? this.displayedColumnsObj.map(({ name }) => name) : [];
   }
 
-  getClassColumn(): string {
-    return 'col-' + (12 / this.displayedColumnsObj.length)
+  btnAction(action: string) {
+    console.log(action)
   }
 }
