@@ -1,1 +1,6 @@
-<button mat-flat-button class=" {{settings.color}}" [disabled]="disable">{{settings.name}}</button>
+<button mat-flat-button class=" {{settings.color}}" [disabled]="disable">
+    <span *ngIf="settings.name !== ''">
+        {{settings.name}}
+    </span>
+    <mat-icon>{{icon}}</mat-icon>
+    </button>

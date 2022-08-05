@@ -9,21 +9,22 @@ export class ButtonComponent implements OnInit {
   @Input() action: string = '';
   @Input() name: string = '';
   @Input() disable: boolean = false;
-
+  icon?: 'save' | 'delete_outline' | 'search';
   settings: {
     name: string;
     color: string;
     action: string;
   };
   constructor() {
-    this.settings = {
-      name: this.getName(),
-      color: this.getCollor(),
-      action: this.action
-    }
+      this.settings = {
+        name: this.getName(),
+        color: this.getCollor(),
+        action: this.action
+      }
   }
 
   ngOnInit(): void {
+    this.changeIcon();
     this.settings = {
       name: this.getName(),
       color: this.getCollor(),
@@ -32,12 +33,12 @@ export class ButtonComponent implements OnInit {
   }
 
   getName(): string {
-    if (this.action === 'delete') {
-      return 'Deletar';
+    /*if (this.action === 'delete') {
+      return null;
     }
     if (this.action === 'view') {
       return `Visualizar ${this.name}`;
-    }
+    }*/
     if (this.action === 'list') {
       return `Lista de ${this.name}`;
     }
@@ -47,7 +48,7 @@ export class ButtonComponent implements OnInit {
     if (this.action === 'back') {
       return 'Voltar';
     }
-    return 'Botão'
+    return ''
   }
 
   getCollor(): string {
@@ -55,6 +56,16 @@ export class ButtonComponent implements OnInit {
       return 'warn-collor';
     } else {
       return 'acent-collor'
+    }
+  }
+
+  changeIcon():void{
+    if(this.action === 'view'){
+      this.icon = 'search';
+    }else if(this.action === 'save'){
+      this.icon = 'save';
+    }else if(this.action === 'delete'){
+      this.icon = 'delete_outline';
     }
   }
 
