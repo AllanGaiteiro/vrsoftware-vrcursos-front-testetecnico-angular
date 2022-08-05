@@ -1,5 +1,32 @@
 <div>
-    <app-table-basic *ngIf="displayedColumnsObj.length > 0 && dataSource.length > 0"
-        [displayedColumnsObj]="displayedColumnsObj" [data]="dataSource"
-        [actions]="['view','delete']"></app-table-basic>
+
+    <!--List Courses --->
+    <mat-card>
+        <table mat-table [dataSource]="courses">
+            <!-- Columns -->
+            <div *ngFor="let column of displayedColumnsObj">
+                <ng-container matColumnDef="{{column.name}}">
+                    <!-- Column Title--->
+                    <th mat-header-cell *matHeaderCellDef class="col-{{column.length}}"> {{column.value}} </th>
+    
+                    <td mat-cell *matCellDef="let course">
+                        <!-- Column Value --->
+                        <span *ngIf="column.name !== 'actions'">
+                            {{course[column.name]}}
+                        </span>
+    
+                        <!-- Column Actions--->
+                        <div class="d-flex justify-content-between" *ngIf="column.name === 'actions'">
+                            <app-button [actionName]="'view'" (click)="redirectByRouter(course.codigo)"></app-button>
+                            <app-button [actionName]="'delete'" (click)="deleteCourse(course.codigo)"></app-button>
+                            
+                        </div>
+                    </td>
+                </ng-container>
+            </div>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card>
 </div>

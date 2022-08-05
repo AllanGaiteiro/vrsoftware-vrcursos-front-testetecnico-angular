@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Course } from 'src/app/core/models/course/course';
 import { CourseService } from '../course.service';
@@ -15,10 +16,12 @@ export class CourseViewComponent implements OnInit {
   }[];
   formGroup: FormGroup;
   course!: Course;
+  courseCodigo: number;
   courseSubscription?: Subscription;
   constructor(
     private fb: FormBuilder,
-    private service: CourseService) {
+    private service: CourseService, private activedRouter: ActivatedRoute) {
+    this.courseCodigo = this.activedRouter.snapshot.params['codigo'];
     this.formGroup = new FormGroup({});
     this.formFields = [
       { name: 'descricao', value: 'Descrição', type: 'input' },
@@ -28,13 +31,12 @@ export class CourseViewComponent implements OnInit {
 
   ngOnInit(): void {
     // Course Find One
-    this.courseSubscription = this.service.findOne(1).subscribe((res) => {
+    this.courseSubscription = this.service.findOne(this.courseCodigo).subscribe((res) => {
       this.course = res;
+      this.createFormCourse();
     }, (error) => {
       console.error('Course Find One - Error ocurred', error)
     })
-    
-    this.createFormCourse();
   }
 
   ngOnDestroy(): void {
@@ -53,7 +55,7 @@ export class CourseViewComponent implements OnInit {
   async updateCourse(course: Course): Promise<void> {
     try {
       console.log('Course Update - Success');
-      await this.service.update(course.codigo,course);
+      await this.service.update(this.courseCodigo, course);
     } catch (error) {
       console.error('Course Update - Error ocurred', error);
     }
