@@ -10,7 +10,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { ButtonComponent } from './button/button.component';
 import { TableBasicComponent } from './table-basic/table-basic.component';
@@ -35,6 +35,7 @@ import { Menu } from '../core/menu-admin/Menu';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatExpansionModule,
     ReactiveFormsModule
   ],
   exports: [
@@ -48,6 +49,7 @@ import { Menu } from '../core/menu-admin/Menu';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatExpansionModule,
     ReactiveFormsModule,
     TableBasicComponent,
     ButtonComponent,

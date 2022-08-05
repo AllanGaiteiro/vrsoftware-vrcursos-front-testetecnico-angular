@@ -6,6 +6,25 @@ $width: $sidenav-width;
 $height: calc(100% - (2 * $spaco));
 $btn-width: 200px;
 $btn-height: 60px;
+$border-radius: 5px;
+
+a {
+    margin: 0;
+    display: block;
+    //width: calc(100% - ($spaco * 2));
+    height: $btn-height;
+    color: $white-color;
+    background-color: $primary-color;
+    border: none;
+    text-align: left;
+    line-height: $btn-height;
+    border-radius: $border-radius;
+
+}
+
+a:hover {
+    background-color: $secondy-color;
+}
 
 mat-card {
     position: fixed;
@@ -16,7 +35,7 @@ mat-card {
     background-color: $primary-color;
     color: $white-color;
     box-shadow: 0px 0px 3px 1px rgba(139, 139, 139, 0.19);
-    border-radius: 10px;
+    border-radius: $border-radius;
     padding: 0 10px;
 
     img {
@@ -29,12 +48,12 @@ mat-card {
         margin: 10px 0;
         background-color: $secondy-color;
         height: $btn-height;
-        border-radius: 10px;
+        border-radius: $border-radius;
 
         div img {
             margin: 0 10px 0px 0px;
             padding: 0;
-            height:calc($btn-height - 20px);
+            height: calc($btn-height - 20px);
         }
 
         p {
@@ -47,27 +66,29 @@ mat-card {
             vertical-align: center;
         }
     }
-
-    #menu {
-        padding: 10px;
-        margin: 10px 0;
-    }
 }
 
-a {
-    margin: 0;
-    display: block;
-    width: $btn-width;
-    height: $btn-height;
-    color: $white-color;
+#menu {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+mat-expansion-panel {
     background-color: $primary-color;
+    width: calc($width - ($spaco * 2));
+    color: white;
     border: none;
-    text-align: left;
-    line-height: $btn-height;
-    border-radius: 10px;
-
+    box-shadow: none;
 }
 
-a:hover {
-    background-color: $secondy-color;
+mat-expansion-panel-header,
+mat-panel-title {
+    padding: 0px;
+    margin: 10px 0;
+    color: white;
+}
+
+.bnt-menu {
+    height: 40px;
+    line-height: 40px;
 }

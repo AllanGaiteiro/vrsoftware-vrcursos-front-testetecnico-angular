@@ -1,9 +1,14 @@
+import { MenuChildren } from "./MenuChildren";
 import { MenuItem } from "./MenuItem";
 
+const MENU_BASIC: MenuChildren[] = [
+    { state: 'listar', name: 'Listar', type: 'link', icon: 'search' },
+    { state: 'criar', name: 'Criar', type: 'link', icon: 'add_circle_outline' }
+]
 
 export const MENU_ADMIN: MenuItem[] = [
-    { state: 'alunos', type: 'link', name: 'Alunos',icon: 'person' },
-    { state: 'cursos', type: 'link', name: 'Cursos',icon: 'bookmark' },
-    { state: 'registros', type: 'link', name: 'Registros',icon: 'how_to_reg' }
+    { state: 'alunos', type: 'link', name: 'Alunos', icon: 'person', children: MENU_BASIC },
+    { state: 'cursos', type: 'link', name: 'Cursos', icon: 'bookmark', children: MENU_BASIC },
+    { state: 'registros', type: 'link', name: 'Registros', icon: 'how_to_reg', children: MENU_BASIC }
 ]
 

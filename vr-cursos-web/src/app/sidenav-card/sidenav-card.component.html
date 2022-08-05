@@ -6,10 +6,27 @@
         </div>
         <p>Admin</p>
     </div>
+    <mat-accordion>
+        <div *ngFor="let item of menu.getMenu()">
+            <mat-expansion-panel *ngIf="item.state !== 'registros'" class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                    <mat-panel-title id="menu">
+                        <mat-icon class="mat-18">{{item.icon}}</mat-icon>
+                        <span>{{item.name}}</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <a mat-flat-button class="bnt-menu" *ngFor="let subItem of item.children"
+                    [routerLink]="['/'+item.state,subItem.state]">
+                    <mat-icon class="mat-18">{{subItem.icon}}</mat-icon>
+                    {{subItem.name}}
+                </a>
+            </mat-expansion-panel>
+            <a mat-flat-button *ngIf="item.state === 'registros'" [routerLink]="['/'+ item.state,'listar']">
+                <mat-icon class="mat-18">{{item.icon}}</mat-icon>
+                {{item.name}}
+            </a>
 
-    <div class="d-block" id="menu">
-        <a mat-flat-button *ngFor="let item of menu.getMenu()" [routerLink]="['/',item.state]">
-            <mat-icon class="mat-18">{{item.icon}}</mat-icon>
-            {{item.name}}</a>
-    </div>
+        </div>
+
+    </mat-accordion>
 </mat-card>
