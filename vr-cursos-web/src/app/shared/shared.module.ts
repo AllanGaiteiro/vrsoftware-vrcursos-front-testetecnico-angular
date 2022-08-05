@@ -13,14 +13,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 import { ButtonComponent } from './button/button.component';
-import { TableBasicComponent } from './table-basic/table-basic.component';
 import { FormCoursesComponent } from './form-basic/form-basic.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Menu } from '../core/menu-admin/Menu';
 
 @NgModule({
   declarations: [
-    TableBasicComponent,
     ButtonComponent,
     FormCoursesComponent,
   ],
@@ -51,7 +49,6 @@ import { Menu } from '../core/menu-admin/Menu';
     MatSelectModule,
     MatExpansionModule,
     ReactiveFormsModule,
-    TableBasicComponent,
     ButtonComponent,
     FormCoursesComponent
     
