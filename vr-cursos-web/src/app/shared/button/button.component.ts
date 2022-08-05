@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
-  @Input() action: string = '';
+  @Input() actionName: string = '';
   @Input() name: string = '';
   @Input() disable: boolean = false;
   icon?: 'save' | 'delete_outline' | 'search';
@@ -19,7 +19,7 @@ export class ButtonComponent implements OnInit {
       this.settings = {
         name: this.getName(),
         color: this.getCollor(),
-        action: this.action
+        action: this.actionName
       }
   }
 
@@ -28,7 +28,7 @@ export class ButtonComponent implements OnInit {
     this.settings = {
       name: this.getName(),
       color: this.getCollor(),
-      action: this.action
+      action: this.actionName
     }
   }
 
@@ -39,20 +39,20 @@ export class ButtonComponent implements OnInit {
     if (this.action === 'view') {
       return `Visualizar ${this.name}`;
     }*/
-    if (this.action === 'list') {
+    if (this.actionName === 'list') {
       return `Lista de ${this.name}`;
     }
-    if (this.action === 'save') {
+    if (this.actionName === 'save') {
       return 'Salvar';
     }
-    if (this.action === 'back') {
+    if (this.actionName === 'back') {
       return 'Voltar';
     }
     return ''
   }
 
   getCollor(): string {
-    if (this.action === 'delete') {
+    if (this.actionName === 'delete') {
       return 'warn-collor';
     } else {
       return 'acent-collor'
@@ -60,11 +60,11 @@ export class ButtonComponent implements OnInit {
   }
 
   changeIcon():void{
-    if(this.action === 'view'){
+    if(this.actionName === 'view'){
       this.icon = 'search';
-    }else if(this.action === 'save'){
+    }else if(this.actionName === 'save'){
       this.icon = 'save';
-    }else if(this.action === 'delete'){
+    }else if(this.actionName === 'delete'){
       this.icon = 'delete_outline';
     }
   }
