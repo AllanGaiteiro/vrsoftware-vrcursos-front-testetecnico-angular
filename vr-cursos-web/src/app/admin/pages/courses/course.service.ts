@@ -8,27 +8,39 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CourseService {
-
+  resource:string = 'courses';
   constructor(private http: HttpClient) { }
 
   find(filter?: any): Observable<Course[]> {
     const params = filter ? new HttpParams().append('filter', filter) : '';
-    return this.http.get<Course[]>(`${environment.backEndUrl}/courses` + params);
+    return this.http.get<Course[]>(`${environment.backEndUrl}/${this.resource}` + params);
   }
 
-  findOne(id: number): Observable<Course> {
-    return this.http.get<Course>(`${environment.backEndUrl}/courses/${id}`);
+  findOne(codigo: number): Observable<Course> {
+    return this.http.get<Course>(`${environment.backEndUrl}/${this.resource}/${codigo}`);
   }
 
-  create(course: Course): Observable<Course> {
-    return this.http.post<Course>(`${environment.backEndUrl}/courses`, course);
+  async create(data: Course): Promise<Course> {
+    return new Promise((resolve,rejects) => {
+      this.http.post<Course>(`${environment.backEndUrl}/${this.resource}/`, data).subscribe(res => {
+        resolve(res)
+      })
+    })
   }
 
-  update(id: number, course: Course): Observable<Course> {
-    return this.http.patch<Course>(`${environment.backEndUrl}/courses/${id}`, course);
+  update(codigo: number, course: Course): Promise<Course> {
+    return new Promise((resolve,rejects) => {
+      this.http.patch<Course>(`${environment.backEndUrl}/${this.resource}/${codigo}`, course).subscribe(res => {
+        resolve(res)
+      })
+    })
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${environment.backEndUrl}/courses/${id}`);
+  delete(codigo: number): Promise<void> {
+    return new Promise((resolve,rejects) => {
+      this.http.delete<void>(`${environment.backEndUrl}/${this.resource}/${codigo}`).subscribe(res => {
+        resolve()
+      })
+    })
   }
 }
