@@ -9,6 +9,6 @@ const MENU_BASIC: MenuChildren[] = [
 export const MENU_ADMIN: MenuItem[] = [
     { state: 'alunos', type: 'link', name: 'Alunos', icon: 'person', children: MENU_BASIC },
     { state: 'cursos', type: 'link', name: 'Cursos', icon: 'bookmark', children: MENU_BASIC },
-    { state: 'registros', type: 'link', name: 'Registros', icon: 'how_to_reg', children: MENU_BASIC }
+    { state: 'matriculations', type: 'link', name: 'Matriculas', icon: 'how_to_reg', children: MENU_BASIC }
 ]
 
