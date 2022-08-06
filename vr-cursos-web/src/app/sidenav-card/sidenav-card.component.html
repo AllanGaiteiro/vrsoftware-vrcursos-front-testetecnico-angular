@@ -8,7 +8,7 @@
     </div>
     <mat-accordion>
         <div *ngFor="let item of menu.getMenu()">
-            <mat-expansion-panel *ngIf="item.state !== 'registros'" class="mat-elevation-z0">
+            <mat-expansion-panel *ngIf="item.state !== 'matriculations'" class="mat-elevation-z0">
                 <mat-expansion-panel-header>
                     <mat-panel-title id="menu">
                         <mat-icon class="mat-18">{{item.icon}}</mat-icon>
@@ -21,7 +21,7 @@
                     {{subItem.name}}
                 </a>
             </mat-expansion-panel>
-            <a mat-flat-button *ngIf="item.state === 'registros'" [routerLink]="['/'+ item.state,'listar']">
+            <a mat-flat-button *ngIf="item.state === 'matriculations'" [routerLink]="['/'+ item.state,'listar']">
                 <mat-icon class="mat-18">{{item.icon}}</mat-icon>
                 {{item.name}}
             </a>
