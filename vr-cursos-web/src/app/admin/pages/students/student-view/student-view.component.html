@@ -5,6 +5,8 @@
             [actions]="['save']" (newEventSubmit)="updateStudent($event)"></app-form-basic>
     </mat-card>
 
-    <!--TO-DO:Table students--->
-    
+    <!--List Courses --->
+    <app-table-basic *ngIf="courses" [displayedColumnsObj]="displayedColumnsObj" [data]="courses" [actions]="['view']"
+        (newEventRedirect)="onRedirect($event)">
+    </app-table-basic>
 </div>
