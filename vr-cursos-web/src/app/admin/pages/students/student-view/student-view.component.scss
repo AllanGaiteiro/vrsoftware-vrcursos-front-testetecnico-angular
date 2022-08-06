@@ -1,0 +1,9 @@
+@import '../../../../../styles/variables.scss';
+
+mat-card {
+    width: 900px;
+    padding: 20px;
+    background-color: $primary-color;
+    margin: 0 auto;
+    border-radius: 10px;
+}
