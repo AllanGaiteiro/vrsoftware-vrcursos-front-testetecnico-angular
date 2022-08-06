@@ -1,0 +1,44 @@
+<div>
+
+    <!--List Matriculations --->
+    <mat-card>
+        <table mat-table [dataSource]="matriculations">
+            <!-- Columns -->
+            <div *ngFor="let column of displayedColumnsObj">
+                <ng-container matColumnDef="{{column.name}}">
+                    <!-- Column Title--->
+                    <th mat-header-cell *matHeaderCellDef class="col-{{column.length}}"> {{column.value}} </th>
+
+                    <td mat-cell *matCellDef="let matriculation">
+
+                        <!-- Column ID --->
+                        <span *ngIf="column.name === 'id'">
+                            {{matriculation[column.name]}}
+                        </span>
+
+                        <!-- Column Course --->
+                        <a *ngIf="column.name === 'course'" [routerLink]="['/cursos','ver',matriculation[column.name].id]">
+                            {{matriculation[column.name].description}}
+                        </a>
+
+                        <!-- Column Student --->
+                        <a *ngIf="column.name === 'student'" [routerLink]="['/alunos','ver',matriculation[column.name].id]">
+                            {{matriculation[column.name].name}}
+                        </a>
+
+                        <!-- Column Actions--->
+                        <div class="d-flex justify-content-between" *ngIf="column.name === 'actions'">
+                            <app-button [actionName]="'view'" (click)="redirectByRouter(matriculation.id)"></app-button>
+                            <app-button [actionName]="'delete'" (click)="deleteMatriculation(matriculation.id)">
+                            </app-button>
+
+                        </div>
+                    </td>
+                </ng-container>
+            </div>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card>
+</div>
