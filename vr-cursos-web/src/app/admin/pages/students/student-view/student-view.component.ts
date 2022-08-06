@@ -85,6 +85,6 @@ export class StudentViewComponent implements OnInit {
   }
 
   onRedirect(id: number) {
-    this.router.navigate([`/courses/ver/${id}`])
+    this.router.navigate([`/cursos/ver/${id}`])
   }
 }
