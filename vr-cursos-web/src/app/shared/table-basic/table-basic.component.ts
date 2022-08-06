@@ -9,6 +9,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class TableBasicComponent implements OnInit {
   @Input() displayedColumnsObj: { name: string, value: string, length: number }[] = [];
   @Input() data: any[] = [];
+  @Input() actions?: string[] = [];
   @Output() newEventDelete = new EventEmitter<number>();
   @Output() newEventRedirect = new EventEmitter<number>();
   displayedColumns: string[] = []
