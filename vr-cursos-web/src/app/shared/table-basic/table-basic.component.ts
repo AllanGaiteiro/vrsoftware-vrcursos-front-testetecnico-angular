@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 
 @Component({
@@ -9,17 +9,14 @@ import { Component, Input, OnInit } from '@angular/core';
 export class TableBasicComponent implements OnInit {
   @Input() displayedColumnsObj: { name: string, value: string, length: number }[] = [];
   @Input() data: any[] = [];
-  @Input() actions: string[] = [];
+  @Output() newEventDelete = new EventEmitter<number>();
+  @Output() newEventRedirect = new EventEmitter<number>();
   displayedColumns: string[] = []
+
   constructor() {
   }
 
   ngOnInit(): void {
-
-    // add column action
-    if (this.actions.length > 0) {
-      this.displayedColumnsObj.push({ name: 'actions', value: 'Ações', length: 2 });
-    }
     this.displayedColumns = this.getDisplayedColumns();
   }
 
@@ -27,7 +24,11 @@ export class TableBasicComponent implements OnInit {
     return this.displayedColumnsObj.length > 0 ? this.displayedColumnsObj.map(({ name }) => name) : [];
   }
 
-  btnAction(action: string) {
-    console.log(action)
+  onDelete(id: number) {
+    this.newEventDelete.emit(id);
+  }  
+  onRedirect(id:number) {
+    this.newEventRedirect.emit(id);
   }
 }
+

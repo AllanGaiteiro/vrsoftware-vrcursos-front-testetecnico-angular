@@ -17,8 +17,7 @@ export class CourseListComponent implements OnInit {
       { name: 'actions', value: 'Ação', length: 2 }
     ];
   courseSubscription?: Subscription;
-  displayedColumns: string[] = [];
-  courses: CourseEntity[] = [];
+  courses?: CourseEntity[];
   constructor(private service: CourseService, private router: Router) {
   }
 
@@ -28,8 +27,7 @@ export class CourseListComponent implements OnInit {
       this.courses = courses;
     }, (error) => {
       console.error('Course Find One - Error ocurred', error)
-    })
-    this.displayedColumns = this.getDisplayedColumns();
+    });
   }
 
   ngOnDestroy(): void {
@@ -38,15 +36,11 @@ export class CourseListComponent implements OnInit {
     }
   }
 
-  deleteCourse(id: number) {
+  onDelete(id: number) {
     this.service.delete(id)
   }
 
-  redirectByRouter(id: number) {
+  onRedirect(id: number) {
     this.router.navigate([`/cursos/ver/${id}`])
-  }
-
-  getDisplayedColumns(): string[] {
-    return this.displayedColumnsObj.length > 0 ? this.displayedColumnsObj.map(({ name }) => name) : [];
   }
 }

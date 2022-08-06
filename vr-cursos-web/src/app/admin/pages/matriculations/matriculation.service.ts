@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CreateMatriculationDto } from 'src/app/core/models/matriculation/dto/create-matriculation.dto';
@@ -12,9 +12,10 @@ export class MatriculationService {
   resource: string = 'matriculations';
   constructor(private http: HttpClient) { }
 
-  find(filter?: any): Observable<Matriculation[]> {
-    const params = filter ? new HttpParams().append('filter', filter) : '';
-    return this.http.get<Matriculation[]>(`${environment.backEndUrl}/${this.resource}` + params);
+  find(options?: { relations?: string[], where: any }): Observable<Matriculation[]> {
+    const params = options ?new HttpParams().append('options', JSON.stringify(options)): new HttpParams();
+  
+    return this.http.get<Matriculation[]>(`${environment.backEndUrl}/${this.resource}`, { params });
   }
 
   findOne(id: number): Observable<Matriculation> {
