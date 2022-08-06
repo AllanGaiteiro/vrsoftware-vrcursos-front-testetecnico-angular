@@ -1,0 +1,31 @@
+@import '../../../../../styles/variables.scss';
+
+mat-card {
+    width: 900px;
+    height: 622px;
+    background-color: $primary-color;
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 30px;
+}
+
+table {
+    margin: 0 auto;
+    background-color: $primary-color;
+    color: $white-color;
+    width: 850px;
+    //height: 622px;
+}
+
+th,
+td {
+    border-color: white;
+    color: $white-color;
+}
+
+th {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+}
