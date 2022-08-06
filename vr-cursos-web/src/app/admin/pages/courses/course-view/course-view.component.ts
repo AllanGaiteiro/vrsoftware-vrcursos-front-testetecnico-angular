@@ -31,9 +31,7 @@ export class CourseViewComponent implements OnInit {
 
   ngOnInit(): void {
     // Course Find One
-    console.log(this.courseId)
     this.courseSubscription = this.service.findOne(this.courseId).subscribe((course) => {
-      console.log(course)
       this.course = course;
       this.createFormCourse();
     }, (error) => {

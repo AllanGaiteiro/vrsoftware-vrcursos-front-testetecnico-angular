@@ -43,7 +43,6 @@ export class CourseListComponent implements OnInit {
   }
 
   redirectByRouter(id: number) {
-    console.log(`/cursos/ver/${id}`)
     this.router.navigate([`/cursos/ver/${id}`])
   }
 

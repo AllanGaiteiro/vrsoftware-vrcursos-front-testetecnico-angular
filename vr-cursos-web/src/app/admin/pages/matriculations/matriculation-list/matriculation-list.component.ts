@@ -44,7 +44,6 @@ export class MatriculationListComponent implements OnInit {
   }
 
   redirectByRouter(id: number) {
-    console.log(`/matriculations/ver/${id}`)
     this.router.navigate([`/matriculations/ver/${id}`])
   }
 

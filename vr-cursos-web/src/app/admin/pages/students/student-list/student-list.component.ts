@@ -44,7 +44,6 @@ export class StudentListComponent implements OnInit {
   }
 
   redirectByRouter(id: number) {
-    console.log(`/alunos/ver/${id}`)
     this.router.navigate([`/alunos/ver/${id}`])
   }
 
