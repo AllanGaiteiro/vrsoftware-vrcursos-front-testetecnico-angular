@@ -16,7 +16,7 @@ export const AdminRoutes: Routes = [
         component: CourseListComponent
       },
       {
-        path: 'ver/:codigo',
+        path: 'ver/:id',
         component: CourseViewComponent
       },
       {

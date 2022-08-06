@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {Course} from 'src/app/core/models/course/course';
+import { CourseEntity } from 'src/app/core/models/course/course.entity';
 import { CourseService } from '../course.service';
 
 @Component({
@@ -13,27 +13,27 @@ export class CourseCreateComponent implements OnInit {
     name: string, value: string, type: string
   }[];
   formGroup: FormGroup;
-  course?: Course;
+  course?: CourseEntity;
   constructor(
     private fb: FormBuilder,
     private service: CourseService) {
-    this.formGroup = this.createFormCourse(new Course());
+    this.formGroup = this.createFormCourse(new CourseEntity());
     this.formFields = [
-      { name: 'descricao', value: 'Descrição', type: 'input' },
-      { name: 'ementa', value: 'Ementa', type: 'textarea' }
+      { name: 'description', value: 'Descrição', type: 'input' },
+      { name: 'menu', value: 'Ementa', type: 'textarea' }
     ];
   }
   ngOnInit(): void {
   }
 
-  createFormCourse(course: Course): FormGroup {
+  createFormCourse(course: CourseEntity): FormGroup {
     return this.fb.group({
-      descricao: new FormControl(course?.descricao ?? '', [Validators.required]),
-      ementa: new FormControl(course?.ementa ?? '', [Validators.required])
+      descricao: new FormControl(course?.description ?? '', [Validators.required]),
+      ementa: new FormControl(course?.menu ?? '', [Validators.required])
     })
   }
 
-  async createCourse(course: Course): Promise<void> {
+  async createCourse(course: CourseEntity): Promise<void> {
     try {
       console.log('Course Create - Success');
       await this.service.create(course);

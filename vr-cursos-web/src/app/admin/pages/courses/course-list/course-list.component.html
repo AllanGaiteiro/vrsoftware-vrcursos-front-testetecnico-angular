@@ -17,8 +17,8 @@
     
                         <!-- Column Actions--->
                         <div class="d-flex justify-content-between" *ngIf="column.name === 'actions'">
-                            <app-button [actionName]="'view'" (click)="redirectByRouter(course.codigo)"></app-button>
-                            <app-button [actionName]="'delete'" (click)="deleteCourse(course.codigo)"></app-button>
+                            <app-button [actionName]="'view'" (click)="redirectByRouter(course.id)"></app-button>
+                            <app-button [actionName]="'delete'" (click)="deleteCourse(course.id)"></app-button>
                             
                         </div>
                     </td>

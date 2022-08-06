@@ -1,7 +1,7 @@
 <div>
     <!---Card Form-->
     <mat-card *ngIf="formFields.length > 0 && course">
-        <app-form-basic [formGroup]="formGroup" [formFields]="formFields" [formName]="'Curso #' + course.codigo || ''"
+        <app-form-basic [formGroup]="formGroup" [formFields]="formFields" [formName]="'Curso #' + course.id || ''"
             [actions]="['save']" (newEventSubmit)="updateCourse($event)"></app-form-basic>
     </mat-card>
 

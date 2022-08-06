@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Course } from 'src/app/core/models/course/course';
+import { CourseEntity } from 'src/app/core/models/course/course.entity';
 import { CourseService } from '../course.service';
 
 @Component({
@@ -12,13 +12,13 @@ import { CourseService } from '../course.service';
 export class CourseListComponent implements OnInit {
   displayedColumnsObj: { name: string, value: string, length: number }[] =
     [
-      { name: 'codigo', value: "Codigo", length: 3 },
-      { name: 'descricao', value: "Descrição", length: 7 },
+      { name: 'id', value: "Codigo", length: 3 },
+      { name: 'description', value: "Descrição", length: 7 },
       { name: 'actions', value: 'Ação', length: 2 }
     ];
   courseSubscription?: Subscription;
   displayedColumns: string[] = [];
-  courses: Course[] = [];
+  courses: CourseEntity[] = [];
   constructor(private service: CourseService, private router: Router) {
   }
 
@@ -38,13 +38,13 @@ export class CourseListComponent implements OnInit {
     }
   }
 
-  deleteCourse(codigo: number){
-    this.service.delete(codigo)
+  deleteCourse(id: number) {
+    this.service.delete(id)
   }
 
-  redirectByRouter(codigo: number) {
-    console.log(`/cursos/ver/${codigo}`)
-    this.router.navigate([`/cursos/ver/${codigo}`])
+  redirectByRouter(id: number) {
+    console.log(`/cursos/ver/${id}`)
+    this.router.navigate([`/cursos/ver/${id}`])
   }
 
   getDisplayedColumns(): string[] {
