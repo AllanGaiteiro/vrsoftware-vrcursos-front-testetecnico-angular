@@ -6,7 +6,7 @@
     </mat-card>
 
     <!--List Students --->
-    <app-table-basic *ngIf="students" [displayedColumnsObj]="displayedColumnsObj" [data]="students"
-        (newEventDelete)="onDelete($event)" (newEventRedirect)="onRedirect($event)">
+    <app-table-basic *ngIf="students" [displayedColumnsObj]="displayedColumnsObj" [data]="students" [actions]="['view']"
+        (newEventRedirect)="onRedirect($event)">
     </app-table-basic>
 </div>
