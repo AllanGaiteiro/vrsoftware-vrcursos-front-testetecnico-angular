@@ -43,7 +43,7 @@ export class CourseViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Course Find One
+        // Find One - Course
     this.courseSubscription = this.service.findOne(this.courseId).subscribe((course) => {
       this.course = course;
       this.createFormCourse();
@@ -82,10 +82,6 @@ export class CourseViewComponent implements OnInit {
     } catch (error) {
       console.error('Course Update - Error ocurred', error);
     }
-  }
-
-  onDelete(codigo: number) {
-    this.service.delete(codigo)
   }
 
   onRedirect(id: number) {
