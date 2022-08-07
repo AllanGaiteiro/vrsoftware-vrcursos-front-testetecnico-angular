@@ -33,7 +33,6 @@ export class CourseCreateComponent implements OnInit {
 
   async createCourse(course: CourseEntity): Promise<void> {
     try {
-      console.log('Course Create - Success');
       await this.service.create(course);
     } catch (error) {
       console.error('Course Create - Error ocurred', error);

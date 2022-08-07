@@ -13,23 +13,27 @@ import { MatriculationService } from '../matriculation.service';
     '../../../../../styles/div-title.scss']
 })
 export class MatriculationListComponent implements OnInit {
-  displayedColumnsObj: DisplayedColumns[] =
-    DISPLAYED_COLUMNS['MATRICULATION'];
+  displayedColumnsObj: DisplayedColumns[] = DISPLAYED_COLUMNS['MATRICULATION'];
   courseSubscription?: Subscription;
   displayedColumns: string[] = [];
   matriculations: Matriculation[] = [];
   constructor(private service: MatriculationService, private router: Router) {
+    this.displayedColumns = this.getDisplayedColumns();
   }
 
   ngOnInit(): void {
-    // Course Find
-    this.courseSubscription = this.service.find().subscribe((matriculations) => {
-      console.log(matriculations, matriculations.map(m => m['course']));
-      this.matriculations = matriculations;
-    }, (error) => {
-      console.error('Matriculation Find One - Error ocurred', error)
-    })
-    this.displayedColumns = this.getDisplayedColumns();
+    this.getMatriculations();
+  }
+
+  async getMatriculations(): Promise<void> {
+    try {
+      const matriculations = await this.service.find();
+      if (matriculations.length > 0) {
+        this.matriculations = matriculations;
+      }
+    } catch (error) {
+      console.error('Matriculation Find - Error ocurred - ', error)
+    }
   }
 
   ngOnDestroy(): void {

@@ -21,17 +21,18 @@ export class StudentListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Student Find
-    this.studentsubscription = this.service.find().subscribe((students) => {
-      this.students = students;
-    }, (error) => {
-      console.error('Student Find One - Error ocurred', error)
-    })
+    this.getStudent();
   }
 
-  ngOnDestroy(): void {
-    if (this.studentsubscription) {
-      this.studentsubscription.unsubscribe()
+  // Get Data
+  async getStudent(): Promise<void> {
+    try {
+      const students = await this.service.find();
+      if (students.length > 0) {
+        this.students = students
+      }
+    } catch (error) {
+      console.error('Student Find One - Error ocurred', error)
     }
   }
 

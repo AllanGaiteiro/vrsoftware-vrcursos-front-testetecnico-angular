@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { FormField } from "src/app/core/models/common/FormField";
 import { CourseEntity } from 'src/app/core/models/course/course.entity';
 import { StudentEntity } from 'src/app/core/models/student/entities/student.entity';
@@ -19,15 +18,12 @@ import { CourseService } from '../course.service';
 })
 export class CourseViewComponent implements OnInit {
   displayedColumnsObj: DisplayedColumns[] =
-    DISPLAYED_COLUMNS['COURSE'];
+    DISPLAYED_COLUMNS['STUDENT'];
   formFields: FormField[] = FORM_FIELD['COURSE'];
   courseId: number;
   formGroup: FormGroup;
   course?: CourseEntity;
   students?: StudentEntity[];
-
-  courseSubscription?: Subscription;
-  matriculationSubscription?: Subscription;
   constructor(
     private fb: FormBuilder,
     private service: CourseService,
@@ -40,27 +36,33 @@ export class CourseViewComponent implements OnInit {
 
   ngOnInit(): void {
     // Find One - Course
-    this.courseSubscription = this.service.findOne(this.courseId).subscribe((course) => {
-      this.course = course;
-      this.createFormCourse();
-    }, (error) => {
-      console.error('Course Find One - Error ocurred', error)
-    })
+    this.getCourse();
 
     // Find - Matriculation of Student for Course
-    this.matriculationSubscription = this.matriculationService.find({ where: { course: { id: this.courseId } } }).subscribe((matriculations) => {
-      this.students = matriculations.map(m => m.student);
-    }, (error) => {
-      console.error('Matriculation Find - Error ocurred', error)
-    })
+    this.getMatriculations();
   }
 
-  ngOnDestroy(): void {
-    if (this.courseSubscription) {
-      this.courseSubscription.unsubscribe()
+  // Get Data
+  async getCourse(): Promise<void> {
+    try {
+      const course = await this.service.findOne(this.courseId);
+      if (course) {
+        this.course = course
+        this.createFormCourse();
+      }
+    } catch (error) {
+      console.error('Course Find - Error ocurred - ', error)
     }
-    if (this.matriculationSubscription) {
-      this.matriculationSubscription.unsubscribe()
+  }
+
+  async getMatriculations(): Promise<void> {
+    try {
+      const matriculations = await this.matriculationService.find({ where: { course: { id: this.courseId } } });
+      if (matriculations.length > 0) {
+        this.students = matriculations?.map(m => m.student);
+      }
+    } catch (error) {
+      console.error('Matriculation Find - Error ocurred - ', error)
     }
   }
 
@@ -73,7 +75,6 @@ export class CourseViewComponent implements OnInit {
 
   async updateCourse(course: Partial<CourseEntity>): Promise<void> {
     try {
-      console.log('Course Update - Success');
       await this.service.update(this.courseId, course);
     } catch (error) {
       console.error('Course Update - Error ocurred', error);

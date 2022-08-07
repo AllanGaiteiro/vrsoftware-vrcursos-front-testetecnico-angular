@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { FormField } from "src/app/core/models/common/FormField";
 import { CourseEntity } from 'src/app/core/models/course/course.entity';
 import { CreateMatriculationDto } from 'src/app/core/models/matriculation/dto/create-matriculation.dto';
@@ -28,10 +27,7 @@ export class StudentViewComponent implements OnInit {
   student!: StudentEntity;
   coursesMatriculed?: CourseEntity[] = [];
   courses: CourseEntity[] = [];
-  //coursesSelected: any;
-  matriculationSubscription?: Subscription;
-  courseSubscription?: Subscription;
-  studentSubscription?: Subscription;
+
   constructor(
     private fb: FormBuilder,
     private service: StudentService,
@@ -45,75 +41,87 @@ export class StudentViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Find One - Student
-    this.studentSubscription = this.service.findOne(this.studentId).subscribe((student) => {
-      this.student = student;
-      this.createFormStudent();
-    }, (error) => {
-      console.error('Course Find One - Error ocurred', error)
-    })
+    this.getStudent()
+    this.getMatriculations();
+    this.getCourses()
+  }
 
-    // Find - Matriculation of Student for Course
-    this.matriculationSubscription = this.matriculationService.find({ where: { student: { id: this.studentId } } }).subscribe((matriculations) => {
+  // Get Data
+  async getStudent(): Promise<void> {
+    try {
+      const student = await this.service.findOne(this.studentId);
+      if (student) {
+        this.student = student
+        this.createFormStudent();
+      }
+    } catch (error) {
+      console.error('Student Find - Error ocurred - ', error)
+    }
+  }
+
+  async getMatriculations(): Promise<void> {
+    try {
+      const matriculations = await this.matriculationService.find({ where: { student: { id: this.studentId } } });
       if (matriculations.length > 0) {
         this.coursesMatriculed = matriculations?.map(m => m.course);
+
+        if (this.courses.length > 0) {
+          this.getCoursesNotMatriculed();
+        }
       }
+    } catch (error) {
+      console.error('Matriculation Find - Error ocurred - ', error)
+    }
+  }
 
-    }, (error) => {
-      console.error('Matriculation Find - Error ocurred', error)
-    })
-
-    // Find - Matriculation of Student for Course
-    this.courseSubscription = this.courseService.find().subscribe((courses) => {
+  async getCourses(): Promise<void> {
+    try {
+      const courses = await this.courseService.find();
       if (courses.length > 0) {
-        const coursesMatriculedIds = this.coursesMatriculed?.map((c) => c.id) || [];
-        this.courses = courses?.filter(c => !coursesMatriculedIds?.includes(c.id));
+        this.courses = courses
+        if (this.coursesMatriculed) {
+          this.getCoursesNotMatriculed();
+        }
       }
-
-    }, (error) => {
-      console.error('Course Find - Error ocurred', error)
-    });
-  }
-
-  ngOnDestroy(): void {
-    if (this.studentSubscription) {
-      this.studentSubscription.unsubscribe()
-    }
-    if (this.matriculationSubscription) {
-      this.matriculationSubscription.unsubscribe()
+    } catch (error) {
+      console.error('Course Find - Error ocurred - ', error)
     }
   }
 
-  createFormStudent(): void {
-    this.formGroup = this.fb.group({
-      name: new FormControl(this.student?.name ?? '', [Validators.required])
-    })
-  }
-
+  // Create 
   async onNewMatriculation(options: MatListOption[]): Promise<void> {
     const newMatriculations = options.map(({ value: courseId }) => ({
       courseId,
       studentId: this.studentId,
     }) as CreateMatriculationDto)
     try {
-      console.log(newMatriculations);
       await Promise.all(newMatriculations.map(async (matriculation) => await this.matriculationService.create(matriculation)))
-      console.log('Matriculation Create - Success');
     } catch (error) {
       console.error('Matriculation Create - Error ocurred', error);
     }
 
   }
 
+  // Update
   async updateStudent(student: StudentEntity): Promise<void> {
     try {
-      console.log('Student Update - Success');
       await this.service.update(this.studentId, student);
     } catch (error) {
       console.error('Student Update - Error ocurred', error);
     }
   }
 
+  // Form
+  createFormStudent(): void {
+    this.formGroup = this.fb.group({
+      name: new FormControl(this.student?.name ?? '', [Validators.required])
+    })
+  }
+
+  getCoursesNotMatriculed(): void {
+    const coursesMatriculedIds = this.coursesMatriculed?.map((c) => c.id) || [];
+    this.courses = this.courses?.filter(c => !coursesMatriculedIds?.includes(c.id));
+  }
   onRedirect(id: number) {
     this.router.navigate([`/cursos/ver/${id}`])
   }

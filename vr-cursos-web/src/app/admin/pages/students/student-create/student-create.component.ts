@@ -24,18 +24,19 @@ export class StudentCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createFormStudent(student: StudentEntity): FormGroup {
-    return this.fb.group({
-      name: new FormControl(student?.name ?? '', [Validators.required])
-    })
-  }
-
+  // Update
   async createStudent(student: StudentEntity): Promise<void> {
     try {
-      console.log('Student Create - Success');
       await this.service.create(student);
     } catch (error) {
       console.error('Student Create - Error ocurred', error);
     }
+  }
+
+  // Forms
+  createFormStudent(student: StudentEntity): FormGroup {
+    return this.fb.group({
+      name: new FormControl(student?.name ?? '', [Validators.required])
+    })
   }
 }

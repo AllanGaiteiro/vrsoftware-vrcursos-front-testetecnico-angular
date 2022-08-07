@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { CourseEntity } from 'src/app/core/models/course/course.entity';
 import { DISPLAYED_COLUMNS } from 'src/app/core/utils/displayed-columns';
 import { DisplayedColumns } from "src/app/core/models/common/DisplayedColumns";
@@ -15,23 +14,24 @@ import { CourseService } from '../course.service';
 export class CourseListComponent implements OnInit {
   displayedColumnsObj: DisplayedColumns[] =
     DISPLAYED_COLUMNS['COURSE'];
-  courseSubscription?: Subscription;
   courses?: CourseEntity[];
   constructor(private service: CourseService, private router: Router) {
   }
 
   ngOnInit(): void {
     // Course Find
-    this.courseSubscription = this.service.find().subscribe((courses) => {
-      this.courses = courses;
-    }, (error) => {
-      console.error('Course Find One - Error ocurred', error)
-    });
+    this.getCourses();
   }
 
-  ngOnDestroy(): void {
-    if (this.courseSubscription) {
-      this.courseSubscription.unsubscribe()
+  // Get Data
+  async getCourses(): Promise<void> {
+    try {
+      const courses = await this.service.find();
+      if (courses.length > 0) {
+        this.courses = courses;
+      }
+    } catch (error) {
+      console.error('Course Find - Error ocurred - ', error)
     }
   }
 
