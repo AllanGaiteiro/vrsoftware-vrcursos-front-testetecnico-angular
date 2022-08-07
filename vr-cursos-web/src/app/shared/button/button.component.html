@@ -1,6 +1,13 @@
-<button mat-stroked-button class=" {{settings.color}}" [disabled]="disable">
-    <span *ngIf="settings.name !== ''">
+<button mat-stroked-button class=" {{settings.color}}" [disabled]="disable || spinner">
+    <span *ngIf="settings.name !== '' && !spinner">
         {{settings.name}}
     </span>
-    <mat-icon *ngIf="icon">{{icon}}</mat-icon>
-    </button>
+    <mat-icon *ngIf="icon  && !spinner">{{icon}}</mat-icon>
+
+    <div class="d-flex" *ngIf="spinner">
+        <span style="color: white;">
+            loading
+        </span>
+        <mat-spinner [diameter]="20"></mat-spinner>
+    </div>
+</button>

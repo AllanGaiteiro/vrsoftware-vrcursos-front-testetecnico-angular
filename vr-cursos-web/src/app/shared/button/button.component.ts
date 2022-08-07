@@ -9,6 +9,7 @@ export class ButtonComponent implements OnInit {
   @Input() actionName: string = '';
   @Input() name: string = '';
   @Input() disable: boolean = false;
+  @Input() spinner: boolean = false;
   icon?: 'save' | 'delete_outline' | 'search' | 'add_circle_outline';
   settings: {
     name: string;
