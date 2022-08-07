@@ -27,7 +27,7 @@ export class StudentViewComponent implements OnInit {
   student!: StudentEntity;
   coursesMatriculed?: CourseEntity[] = [];
   courses: CourseEntity[] = [];
-
+  runCreateMatriculation: boolean = false;
   constructor(
     private fb: FormBuilder,
     private service: StudentService,
@@ -90,12 +90,14 @@ export class StudentViewComponent implements OnInit {
 
   // Create 
   async onNewMatriculation(options: MatListOption[]): Promise<void> {
+    this.runCreateMatriculation = true;
     const newMatriculations = options.map(({ value: courseId }) => ({
       courseId,
       studentId: this.studentId,
     }) as CreateMatriculationDto)
     try {
       await Promise.all(newMatriculations.map(async (matriculation) => await this.matriculationService.create(matriculation)))
+      this.runCreateMatriculation = false;
     } catch (error) {
       console.error('Matriculation Create - Error ocurred', error);
     }

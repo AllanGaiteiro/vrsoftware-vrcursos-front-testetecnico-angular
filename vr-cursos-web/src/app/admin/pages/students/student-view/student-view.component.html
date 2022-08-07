@@ -28,7 +28,8 @@
                         </mat-list-option>
                     </mat-selection-list>
                     <div class="d-flex justify-content-end mt-2">
-                        <app-button [name]="'Adcionar'"
+                        <app-button [name]="'Adcionar'" [spinner]="runCreateMatriculation"
+                            [disable]="runCreateMatriculation"
                             (click)="onNewMatriculation(coursesSelected.selectedOptions.selected)"></app-button>
                     </div>
 
