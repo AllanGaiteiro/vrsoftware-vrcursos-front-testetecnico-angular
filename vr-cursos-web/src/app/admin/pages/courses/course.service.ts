@@ -11,18 +11,30 @@ export class CourseService {
   resource: string = 'courses';
   constructor(private http: HttpClient) { }
 
-  find(filter?: any): Observable<CourseEntity[]> {
-    const params = filter ? new HttpParams().append('filter', filter) : '';
-    return this.http.get<CourseEntity[]>(`${environment.backEndUrl}/${this.resource}` + params);
+  // CRUD
+  find(options?: { relations?: string[], where: any }): Promise<CourseEntity[]> {
+    return new Promise((resolve, rejects) => {
+      const params = options ? new HttpParams().append('options', JSON.stringify(options)) : new HttpParams();
+      return this.http.get<CourseEntity[]>(`${environment.backEndUrl}/${this.resource}`, { params }).subscribe(res => {
+        this.logSucces('Find');
+        resolve(res)
+      });
+    })
   }
 
-  findOne(id: number): Observable<CourseEntity> {
-    return this.http.get<CourseEntity>(`${environment.backEndUrl}/${this.resource}/${id}`);
+  findOne(id: number): Promise<CourseEntity> {
+    return new Promise((resolve, rejects) => {
+      this.http.get<CourseEntity>(`${environment.backEndUrl}/${this.resource}/${id}`).subscribe(res => {
+        this.logSucces('Find-One');
+        resolve(res)
+      });
+    })
   }
 
   async create(data: CourseEntity): Promise<CourseEntity> {
     return new Promise((resolve, rejects) => {
       this.http.post<CourseEntity>(`${environment.backEndUrl}/${this.resource}/`, data).subscribe(res => {
+        this.logSucces('Create');
         resolve(res)
       })
     })
@@ -31,6 +43,7 @@ export class CourseService {
   update(id: number, data: Partial<CourseEntity>): Promise<CourseEntity> {
     return new Promise((resolve, rejects) => {
       this.http.patch<CourseEntity>(`${environment.backEndUrl}/${this.resource}/${id}`, data).subscribe(res => {
+        this.logSucces('Update');
         resolve(res)
       })
     })
@@ -38,9 +51,19 @@ export class CourseService {
 
   delete(id: number): Promise<void> {
     return new Promise((resolve, rejects) => {
-      this.http.delete<void>(`${environment.backEndUrl}/${this.resource}/${id}`).subscribe(res => {
+      this.http.delete<void>(`${environment.backEndUrl}/${this.resource}/${id}`).subscribe((res) => {
+        this.logSucces('Delete');
         resolve()
       })
     })
+  }
+
+  // Logs
+  logSucces(text: string) {
+    console.log(`Course Service - ${text} - Success`);
+  }
+
+  logError(text: string, error: any) {
+    console.error(`Course Service - ${text} - Error Ocurred: `, error);
   }
 }

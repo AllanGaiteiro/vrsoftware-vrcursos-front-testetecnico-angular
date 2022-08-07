@@ -8,40 +8,63 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class StudentService {
-  resource:string ='students'
+  resource: string = 'students'
   constructor(private http: HttpClient) { }
 
-  find(filter?: any): Observable<StudentEntity[]> {
-    const params = filter ? new HttpParams().append('filter', filter) : '';
-    return this.http.get<StudentEntity[]>(`${environment.backEndUrl}/${this.resource}` + params);
+  // CRUD
+  find(options?: { relations?: string[], where: any }): Promise<StudentEntity[]> {
+    return new Promise((resolve, rejects) => {
+      const params = options ? new HttpParams().append('options', JSON.stringify(options)) : new HttpParams();
+      return this.http.get<StudentEntity[]>(`${environment.backEndUrl}/${this.resource}`, { params }).subscribe(res => {
+        this.logSucces('Find');
+        resolve(res)
+      });
+    })
   }
 
-  findOne(id: number): Observable<StudentEntity> {
-    return this.http.get<StudentEntity>(`${environment.backEndUrl}/${this.resource}/${id}`);
+  findOne(id: number): Promise<StudentEntity> {
+    return new Promise((resolve, rejects) => {
+      this.http.get<StudentEntity>(`${environment.backEndUrl}/${this.resource}/${id}`).subscribe(res => {
+        this.logSucces('Find-One');
+        resolve(res)
+      });
+    })
   }
 
   async create(data: StudentEntity): Promise<StudentEntity> {
-    return new Promise((resolve,rejects) => {
+    return new Promise((resolve, rejects) => {
       this.http.post<StudentEntity>(`${environment.backEndUrl}/${this.resource}/`, data).subscribe(res => {
+        this.logSucces('Create');
         resolve(res)
       })
     })
   }
 
   update(id: number, data: StudentEntity): Promise<StudentEntity> {
-    return new Promise((resolve,rejects) => {
+    return new Promise((resolve, rejects) => {
       this.http.patch<StudentEntity>(`${environment.backEndUrl}/${this.resource}/${id}`, data).subscribe(res => {
+        this.logSucces('Update');
         resolve(res)
       })
     })
   }
 
   delete(id: number): Promise<void> {
-    return new Promise((resolve,rejects) => {
-      this.http.delete<void>(`${environment.backEndUrl}/${this.resource}/${id}`).subscribe(res => {
+    return new Promise((resolve, rejects) => {
+      this.http.delete<void>(`${environment.backEndUrl}/${this.resource}/${id}`).subscribe((res) => {
+        this.logSucces('Delete');
         resolve()
       })
     })
+  }
+
+  // Logs
+  logSucces(text: string) {
+    console.log(`Student Service - ${text} - Success`);
+  }
+
+  logError(text: string, error: any) {
+    console.error(`Student Service - ${text} - Error Ocurred: `, error);
   }
 }
 
