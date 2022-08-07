@@ -1,9 +1,30 @@
 @import '../../../../../styles/variables.scss';
 
+/* variable */
+$spaco: $body-margin;
+$width: 900px;
+$height: calc(100% - (2 * $spaco));
+$padding: calc($body-margin * 2);
+
 mat-card {
-    width: 900px;
-    padding: 20px;
+    width: $width;
+    padding: $padding ;
     background-color: $primary-color;
-    margin: 0 auto;
-    border-radius: 10px;
+    margin: $padding auto;
+    border-radius: $border-radius;
+}
+
+mat-expansion-panel {
+    background-color: $primary-color;
+    width: calc($width - ($spaco * 2));
+    color: white;
+    border: none;
+    box-shadow: none;
+}
+
+mat-expansion-panel-header,
+mat-panel-title {
+    padding: 0px;
+    margin: 10px 0;
+    color: white;
 }

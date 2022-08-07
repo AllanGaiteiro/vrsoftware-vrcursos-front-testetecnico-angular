@@ -1,12 +1,48 @@
 <div>
+    <div class="div-title">
+        <h2>Visualizar Aluno</h2>
+    </div>
+
     <!---Card Form-->
     <mat-card *ngIf="formFields.length > 0 && student">
         <app-form-basic [formGroup]="formGroup" [formFields]="formFields" [formName]="'Curso #' + student.id || ''"
             [actions]="['save']" (newEventSubmit)="updateStudent($event)"></app-form-basic>
     </mat-card>
 
+    <mat-card>
+        <mat-accordion *ngIf="courses">
+            <div>
+                <mat-expansion-panel class="mat-elevation-z0">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="d-flex justify-content-between">
+                            <h3>Adicionar Curso</h3>
+
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-selection-list #coursesSelected class="w-100">
+                        <mat-list-option *ngFor="let course of courses" [value]="course.id">
+                            <div class="d-flex justify-content-between w-100">
+                                <span style="color: white;">{{course.description}}</span>
+                            </div>
+
+                        </mat-list-option>
+                    </mat-selection-list>
+                    <div class="d-flex justify-content-end mt-2">
+                        <app-button [name]="'Adcionar'"
+                            (click)="onNewMatriculation(coursesSelected.selectedOptions.selected)"></app-button>
+                    </div>
+
+                </mat-expansion-panel>
+            </div>
+
+        </mat-accordion>
+    </mat-card>
+
     <!--List Courses --->
-    <app-table-basic *ngIf="courses" [displayedColumnsObj]="displayedColumnsObj" [data]="courses" [actions]="['view']"
-        (newEventRedirect)="onRedirect($event)">
+    <div class="div-title">
+        <h2>Lista de Cursos do Aluno</h2>
+    </div>
+    <app-table-basic *ngIf="coursesMatriculed" [displayedColumnsObj]="displayedColumnsObj" [data]="coursesMatriculed"
+        [actions]="['view']" (newEventRedirect)="onRedirect($event)">
     </app-table-basic>
 </div>

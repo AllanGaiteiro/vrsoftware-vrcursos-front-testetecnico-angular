@@ -13,8 +13,8 @@ export class MatriculationService {
   constructor(private http: HttpClient) { }
 
   find(options?: { relations?: string[], where: any }): Observable<Matriculation[]> {
-    const params = options ?new HttpParams().append('options', JSON.stringify(options)): new HttpParams();
-  
+    const params = options ? new HttpParams().append('options', JSON.stringify(options)) : new HttpParams();
+
     return this.http.get<Matriculation[]>(`${environment.backEndUrl}/${this.resource}`, { params });
   }
 
@@ -24,9 +24,11 @@ export class MatriculationService {
 
   async create(data: CreateMatriculationDto): Promise<Matriculation> {
     return new Promise((resolve, rejects) => {
-      this.http.post<Matriculation>(`${environment.backEndUrl}/${this.resource}/`, data).subscribe(res => {
-        resolve(res)
-      })
+      if (data.courseId && data.studentId) {
+        this.http.post<Matriculation>(`${environment.backEndUrl}/${this.resource}/`, data).subscribe(res => {
+          resolve(res)
+        })
+      }
     })
   }
 
