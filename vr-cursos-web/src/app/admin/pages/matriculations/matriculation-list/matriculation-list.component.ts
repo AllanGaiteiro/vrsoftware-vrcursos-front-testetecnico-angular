@@ -2,20 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Matriculation } from 'src/app/core/models/matriculation/entities/matriculation.entity';
+import { DISPLAYED_COLUMNS } from 'src/app/core/utils/displayed-columns';
+import { DisplayedColumns } from "src/app/core/models/common/DisplayedColumns";
 import { MatriculationService } from '../matriculation.service';
 
 @Component({
   selector: 'app-matriculation-list',
   templateUrl: './matriculation-list.component.html',
-  styleUrls: ['./matriculation-list.component.scss']
+  styleUrls: ['./matriculation-list.component.scss',
+    '../../../../../styles/div-title.scss']
 })
 export class MatriculationListComponent implements OnInit {
-  displayedColumnsObj: { name: string, value: string, length: number }[] =
-    [
-      { name: 'id', value: "Codigo", length: 3 },
-      { name: 'course', value: "Cursos", length: 4 },
-      { name: 'student', value: 'Aluno', length: 5 }
-    ];
+  displayedColumnsObj: DisplayedColumns[] =
+    DISPLAYED_COLUMNS['MATRICULATION'];
   courseSubscription?: Subscription;
   displayedColumns: string[] = [];
   matriculations: Matriculation[] = [];
