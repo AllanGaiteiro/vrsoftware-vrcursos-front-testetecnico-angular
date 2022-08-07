@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { FormField } from 'src/app/core/models/common/FormField';
 
 @Component({
   selector: 'app-form-basic',
@@ -7,9 +8,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./form-basic.component.scss']
 })
 export class FormCoursesComponent implements OnInit {
-  @Input() formFields: {
-    name: string, value: string, type: string
-  }[] = [];
+  @Input() formFields: FormField[] = [];
   @Input() formGroup: FormGroup = new FormGroup({});
   @Input() formName: string = '';
   @Input() actions: string[] = [];
