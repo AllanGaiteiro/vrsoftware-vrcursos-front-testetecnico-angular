@@ -16,6 +16,8 @@
                     <div class="d-flex justify-content-between" *ngIf="column.name === 'actions'">
                         <app-button *ngIf="actions?.includes('view')" [actionName]="'view'"
                             (click)="onRedirect(element.id)"></app-button>
+                        <app-button *ngIf="actions?.includes('add')" [actionName]="'add'"
+                            (click)="onAdd(element.id)"></app-button>
                         <app-button *ngIf="actions?.includes('delete')" [actionName]="'delete'"
                             (click)="onDelete(element.id)"></app-button>
                     </div>

@@ -1,5 +1,4 @@
 export interface CreateMatriculationDto {
-    id: number;
-    student: number;
-    course: number;
+    studentId: number;
+    courseId: number;
   }

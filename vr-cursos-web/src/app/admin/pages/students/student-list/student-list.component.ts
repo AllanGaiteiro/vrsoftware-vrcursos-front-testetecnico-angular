@@ -2,21 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { StudentEntity } from 'src/app/core/models/student/entities/student.entity';
+import { DISPLAYED_COLUMNS } from 'src/app/core/utils/displayed-columns';
+import { DisplayedColumns } from "src/app/core/models/common/DisplayedColumns";
 import { StudentService } from '../student.service';
 
 
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
-  styleUrls: ['./student-list.component.scss']
+  styleUrls: ['./student-list.component.scss',
+    '../../../../../styles/div-title.scss']
 })
 export class StudentListComponent implements OnInit {
-  displayedColumnsObj: { name: string, value: string, length: number }[] =
-    [
-      { name: 'id', value: "Codigo", length: 3 },
-      { name: 'name', value: "Nome", length: 7 },
-      { name: 'actions', value: 'Ação', length: 2 }
-    ];
+  displayedColumnsObj: DisplayedColumns[] = DISPLAYED_COLUMNS['STUDENT'];
   studentsubscription?: Subscription;
   students?: StudentEntity[];
   constructor(private service: StudentService, private router: Router) {

@@ -1,10 +1,16 @@
 <div>
+    <div class="div-title">
+        <h2>Visualizar Curso</h2>
+    </div>
     <!---Card Form-->
     <mat-card *ngIf="formFields.length > 0 && course">
         <app-form-basic [formGroup]="formGroup" [formFields]="formFields" [formName]="'Curso #' + course.id || ''"
             [actions]="['save']" (newEventSubmit)="updateCourse($event)"></app-form-basic>
     </mat-card>
 
+    <div class="div-title">
+        <h2>Lista de Alunos Matriculados no Curso</h2>
+    </div>
     <!--List Students --->
     <app-table-basic *ngIf="students" [displayedColumnsObj]="displayedColumnsObj" [data]="students" [actions]="['view']"
         (newEventRedirect)="onRedirect($event)">

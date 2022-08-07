@@ -2,5 +2,5 @@
     <span *ngIf="settings.name !== ''">
         {{settings.name}}
     </span>
-    <mat-icon>{{icon}}</mat-icon>
+    <mat-icon *ngIf="icon">{{icon}}</mat-icon>
     </button>

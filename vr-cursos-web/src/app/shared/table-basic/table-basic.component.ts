@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DisplayedColumns } from 'src/app/core/models/common/DisplayedColumns';
 
 
 @Component({
@@ -7,11 +8,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./table-basic.component.scss'],
 })
 export class TableBasicComponent implements OnInit {
-  @Input() displayedColumnsObj: { name: string, value: string, length: number }[] = [];
+  @Input() displayedColumnsObj: DisplayedColumns[] = [];
   @Input() data: any[] = [];
   @Input() actions?: string[] = [];
   @Output() newEventDelete = new EventEmitter<number>();
   @Output() newEventRedirect = new EventEmitter<number>();
+  @Output() newEventAdd = new EventEmitter<number>();
   displayedColumns: string[] = []
 
   constructor() {
@@ -25,11 +27,15 @@ export class TableBasicComponent implements OnInit {
     return this.displayedColumnsObj.length > 0 ? this.displayedColumnsObj.map(({ name }) => name) : [];
   }
 
-  onDelete(id: number) {
-    this.newEventDelete.emit(id);
+
+  onAdd(id:number) {
+    this.newEventAdd.emit(id);
   }  
   onRedirect(id:number) {
     this.newEventRedirect.emit(id);
-  }
+  }  
+  onDelete(id: number) {
+    this.newEventDelete.emit(id);
+  }  
 }
 

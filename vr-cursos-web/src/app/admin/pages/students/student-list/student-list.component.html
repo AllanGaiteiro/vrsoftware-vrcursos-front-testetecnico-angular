@@ -1,7 +1,10 @@
 <div>
+    <div class="div-title">
+        <h2>Lista de Alunos</h2>
+    </div>
 
     <!--List Students --->
-    <app-table-basic *ngIf="students" [displayedColumnsObj]="displayedColumnsObj" [data]="students" [actions]="['view','delete']"
-        (newEventDelete)="onDelete($event)" (newEventRedirect)="onRedirect($event)">
+    <app-table-basic *ngIf="students" [displayedColumnsObj]="displayedColumnsObj" [data]="students"
+        [actions]="['view','delete']" (newEventDelete)="onDelete($event)" (newEventRedirect)="onRedirect($event)">
     </app-table-basic>
 </div>

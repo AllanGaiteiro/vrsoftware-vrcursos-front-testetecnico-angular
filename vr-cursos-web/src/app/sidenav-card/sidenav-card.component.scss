@@ -6,7 +6,7 @@ $width: $sidenav-width;
 $height: calc(100% - (2 * $spaco));
 $btn-width: 200px;
 $btn-height: 60px;
-$border-radius: 5px;
+$border-radius: $border-radius;
 
 a {
     margin: 0;

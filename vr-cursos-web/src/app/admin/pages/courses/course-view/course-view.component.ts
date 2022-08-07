@@ -2,29 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { FormField } from "src/app/core/models/common/FormField";
 import { CourseEntity } from 'src/app/core/models/course/course.entity';
 import { StudentEntity } from 'src/app/core/models/student/entities/student.entity';
+import { DISPLAYED_COLUMNS } from 'src/app/core/utils/displayed-columns';
+import { DisplayedColumns } from "src/app/core/models/common/DisplayedColumns";
+import { FORM_FIELD } from 'src/app/core/utils/form-fields';
 import { MatriculationService } from '../../matriculations/matriculation.service';
 import { CourseService } from '../course.service';
 
 @Component({
   selector: 'app-course-view',
   templateUrl: './course-view.component.html',
-  styleUrls: ['./course-view.component.scss']
+  styleUrls: ['./course-view.component.scss',
+    '../../../../../styles/div-title.scss']
 })
 export class CourseViewComponent implements OnInit {
-  displayedColumnsObj: { name: string, value: string, length: number }[] =
-    [
-      { name: 'id', value: "Codigo", length: 3 },
-      { name: 'name', value: "Nome", length: 7 },
-      { name: 'actions', value: 'Ação', length: 2 }
-    ];
-  formFields: {
-    name: string, value: string, type: string
-  }[] = [
-      { name: 'description', value: 'Descrição', type: 'input' },
-      { name: 'menu', value: 'Ementa', type: 'textarea' }
-    ];;
+  displayedColumnsObj: DisplayedColumns[] =
+    DISPLAYED_COLUMNS['COURSE'];
+  formFields: FormField[] = FORM_FIELD['COURSE'];
   courseId: number;
   formGroup: FormGroup;
   course?: CourseEntity;
@@ -43,7 +39,7 @@ export class CourseViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-        // Find One - Course
+    // Find One - Course
     this.courseSubscription = this.service.findOne(this.courseId).subscribe((course) => {
       this.course = course;
       this.createFormCourse();
