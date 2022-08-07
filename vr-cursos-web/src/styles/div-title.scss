@@ -1,0 +1,17 @@
+@import './variables.scss';
+
+/* variable */
+$spaco: $body-margin;
+$width: 900px;
+$height: calc(100% - (2 * $spaco));
+$padding: calc($body-margin * 2);
+
+div {
+    color: white;
+}
+
+.div-title {
+    width: $width;
+    padding: $padding ;
+    margin: $padding auto;
+}
