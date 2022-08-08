@@ -5,6 +5,6 @@
     </div>
     <!--List Courses --->
     <app-table-basic *ngIf="courses" [displayedColumnsObj]="displayedColumnsObj" [data]="courses"
- [actions]="['view','delete']"        (newEventDelete)="onDelete($event)" (newEventRedirect)="onRedirect($event)">
+ [actions]="['view']"        (newEventDelete)="onDelete($event)" (newEventRedirect)="onRedirect($event)">
     </app-table-basic>
 </div>
