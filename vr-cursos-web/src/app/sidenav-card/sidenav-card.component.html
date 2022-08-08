@@ -8,7 +8,7 @@
     </div>
     <mat-accordion>
         <div *ngFor="let item of menu.getMenu()">
-            <mat-expansion-panel *ngIf="item.state !== 'matriculations'" class="mat-elevation-z0">
+            <mat-expansion-panel *ngIf="item.state !== 'matriculations'" class="mat-elevation-z0" hideToggle>
                 <mat-expansion-panel-header>
                     <mat-panel-title id="menu">
                         <mat-icon class="mat-18">{{item.icon}}</mat-icon>
