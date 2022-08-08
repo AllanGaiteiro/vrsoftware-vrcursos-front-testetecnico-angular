@@ -19,33 +19,31 @@ export class TableBasicComponent implements OnInit {
   @Output() newEventRedirect = new EventEmitter<number>();
   @Output() newEventAdd = new EventEmitter<number>();
   displayedColumns: string[] = []
-  dataSource?: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
-  @ViewChild(MatPaginator)
-  paginator?: MatPaginator;
-  @ViewChild(MatSort)
-  sort?: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator?: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort?: MatSort;
   constructor() {
-  }
-
-  ngOnInit(): void {
-    this.displayedColumns = this.getDisplayedColumns();
-    this.dataSource = new MatTableDataSource(this.data);
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
     }
     if (this.sort) {
-      /*
-      this.dataSource.sortingDataAccessor = (item, property) => {
-        switch (property) {
-          case 'course': return item.course.description;
-          case 'student': return item.student.name;
-          case 'id': return item.id;
-          default: return item[property];
-        }
-      };*/
       this.dataSource.sort = this.sort;
     }
+  }
+
+  ngOnInit(): void {
+    this.displayedColumns = this.getDisplayedColumns();
+    if (this.data.length > 0) {
+      this.dataSource = new MatTableDataSource(this.data);
+      if (this.paginator) {
+        this.dataSource.paginator = this.paginator;
+      }
+      if (this.sort) {
+        this.dataSource.sort = this.sort;
+      }
+    }
+
   }
 
   getDisplayedColumns(): string[] {
