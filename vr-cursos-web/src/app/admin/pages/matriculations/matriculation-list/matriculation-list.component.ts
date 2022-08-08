@@ -32,7 +32,6 @@ export class MatriculationListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMatriculations();
   }
 
   async getMatriculations(): Promise<void> {
