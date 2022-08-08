@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DisplayedColumns } from 'src/app/core/models/common/DisplayedColumns';
-import { Matriculation } from 'src/app/core/models/matriculation/entities/matriculation.entity';
 
 
 @Component({

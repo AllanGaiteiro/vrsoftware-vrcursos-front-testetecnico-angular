@@ -20,12 +20,10 @@ export class MatriculationListComponent implements OnInit {
   courseSubscription?: Subscription;
   displayedColumns: string[] = [];
   matriculations: Matriculation[] = [];
-  dataSource?: MatTableDataSource<Matriculation>;
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  @ViewChild(MatPaginator)
-  paginator?: MatPaginator;
-  @ViewChild(MatSort)
-  sort?: MatSort;
   constructor(private service: MatriculationService, private router: Router) {
     this.displayedColumns = this.getDisplayedColumns();
     this.getMatriculations();
@@ -34,6 +32,10 @@ export class MatriculationListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
   async getMatriculations(): Promise<void> {
     try {
       const matriculations = await this.service.find();
