@@ -12,6 +12,8 @@ import { CourseService } from '../../courses/course.service';
 import { MatriculationService } from '../../matriculations/matriculation.service';
 import { StudentService } from '../student.service';
 import { MatListOption } from '@angular/material/list';
+import { DialogComfirmComponent } from 'src/app/shared/dialog-comfirm/dialog-comfirm.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-student-view',
@@ -25,7 +27,7 @@ export class StudentViewComponent implements OnInit {
   studentId: number;
   formGroup: FormGroup;
   student!: StudentEntity;
-  coursesMatriculed?: CourseEntity[] = [];
+  coursesMatriculed: CourseEntity[] = [];
   courses: CourseEntity[] = [];
   runCreateMatriculation: boolean = false;
   constructor(
@@ -34,7 +36,9 @@ export class StudentViewComponent implements OnInit {
     private matriculationService: MatriculationService,
     private courseService: CourseService,
     private router: Router,
-    private activedRouter: ActivatedRoute) {
+    private activedRouter: ActivatedRoute,
+    public dialog: MatDialog
+  ) {
     this.studentId = +this.activedRouter.snapshot.params['id'];
     this.formGroup = new FormGroup({});
     this.formFields = FORM_FIELD['STUDENT'];
@@ -64,7 +68,7 @@ export class StudentViewComponent implements OnInit {
       const matriculations = await this.matriculationService.find({ where: { student: { id: this.studentId } } });
       if (matriculations.length > 0) {
         this.coursesMatriculed = matriculations?.map(m => m.course);
-
+        console.log(this.coursesMatriculed)
         if (this.courses.length > 0) {
           this.getCoursesNotMatriculed();
         }
@@ -89,28 +93,56 @@ export class StudentViewComponent implements OnInit {
   }
 
   // Create 
-  async onNewMatriculation(options: MatListOption[]): Promise<void> {
+  onNewMatriculation(options: MatListOption[]): void {
     this.runCreateMatriculation = true;
-    const newMatriculations = options.map(({ value: courseId }) => ({
-      courseId,
-      studentId: this.studentId,
-    }) as CreateMatriculationDto)
-    try {
-      await Promise.all(newMatriculations.map(async (matriculation) => await this.matriculationService.create(matriculation)))
+    this.dialog.open(DialogComfirmComponent, {
+      width: '600px',
+      panelClass: 'mat-dialog-class',
+      data: {
+        title: 'Adicionar Nova Matricular',
+        description: 'Voce realmente deseja continuar?',
+        isOnlyConfirm: true
+      }
+    }).afterClosed().subscribe(async (res) => {
+      if (res) {
+        const newMatriculations = options.map(({ value: courseId }) => ({
+          courseId,
+          studentId: this.studentId,
+        }) as CreateMatriculationDto)
+        try {
+          await Promise.all(newMatriculations.map(async (matriculation) => await this.matriculationService.create(matriculation)))
+        } catch (error) {
+          console.error('Matriculation Create - Error ocurred', error);
+        }
+      }
       this.runCreateMatriculation = false;
-    } catch (error) {
-      console.error('Matriculation Create - Error ocurred', error);
-    }
+      this.getMatriculations();
+      this.getCourses()
+    });
+
 
   }
 
   // Update
   async updateStudent(student: StudentEntity): Promise<void> {
-    try {
-      await this.service.update(this.studentId, student);
-    } catch (error) {
-      console.error('Student Update - Error ocurred', error);
-    }
+    this.dialog.open(DialogComfirmComponent, {
+      width: '600px',
+      panelClass: 'mat-dialog-class',
+      data: {
+        title: 'Atualizar Aluno',
+        description: 'Voce realmente deseja continuar?',
+        isOnlyConfirm: true
+      }
+    }).afterClosed().subscribe(async (res) => {
+      if (res) {
+        try {
+          await this.service.update(this.studentId, student);
+        } catch (error) {
+          console.error('Student Update - Error ocurred', error);
+        }
+      }
+    })
+
   }
 
   // Form

@@ -4,6 +4,9 @@ import { CourseEntity } from 'src/app/core/models/course/course.entity';
 import { FORM_FIELD } from 'src/app/core/utils/form-fields';
 import { FormField } from "src/app/core/models/common/FormField";
 import { CourseService } from '../course.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComfirmComponent } from 'src/app/shared/dialog-comfirm/dialog-comfirm.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-create',
@@ -17,7 +20,10 @@ export class CourseCreateComponent implements OnInit {
   course?: CourseEntity;
   constructor(
     private fb: FormBuilder,
-    private service: CourseService) {
+    private service: CourseService,
+    public dialog: MatDialog,
+    private router: Router
+  ) {
     this.formGroup = this.createFormCourse(new CourseEntity());
     this.formFields = FORM_FIELD['COURSE'];
   }
@@ -31,11 +37,29 @@ export class CourseCreateComponent implements OnInit {
     })
   }
 
-  async createCourse(course: CourseEntity): Promise<void> {
-    try {
-      await this.service.create(course);
-    } catch (error) {
-      console.error('Course Create - Error ocurred', error);
-    }
+  async createCourse(newCourse: CourseEntity): Promise<void> {
+    this.dialog.open(DialogComfirmComponent, {
+      width: '600px',
+      panelClass: 'mat-dialog-class',
+      data: {
+        title: 'Criar Novo Curso',
+        description: 'Voce realmente deseja continuar?',
+        isOnlyConfirm: true
+      }
+    }).afterClosed().subscribe(async (res) => {
+      if (res) {
+        try {
+          const course = await this.service.create(newCourse);
+          this.onRedirect(course.id)
+        } catch (error) {
+          console.error('Course Create - Error ocurred', error);
+        }
+      }
+
+    });
+  }
+
+  onRedirect(id: number) {
+    this.router.navigate([`/cursos/ver/${id}`]);
   }
 }

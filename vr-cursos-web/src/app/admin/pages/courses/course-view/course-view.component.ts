@@ -9,6 +9,8 @@ import { DisplayedColumns } from "src/app/core/models/common/DisplayedColumns";
 import { FORM_FIELD } from 'src/app/core/utils/form-fields';
 import { MatriculationService } from '../../matriculations/matriculation.service';
 import { CourseService } from '../course.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComfirmComponent } from 'src/app/shared/dialog-comfirm/dialog-comfirm.component';
 
 @Component({
   selector: 'app-course-view',
@@ -29,7 +31,9 @@ export class CourseViewComponent implements OnInit {
     private service: CourseService,
     private matriculationService: MatriculationService,
     private router: Router,
-    private activedRouter: ActivatedRoute) {
+    private activedRouter: ActivatedRoute,
+    public dialog: MatDialog
+    ) {
     this.courseId = +this.activedRouter.snapshot.params['id'];
     this.formGroup = new FormGroup({});
   }
@@ -74,11 +78,24 @@ export class CourseViewComponent implements OnInit {
   }
 
   async updateCourse(course: Partial<CourseEntity>): Promise<void> {
-    try {
-      await this.service.update(this.courseId, course);
-    } catch (error) {
-      console.error('Course Update - Error ocurred', error);
-    }
+    this.dialog.open(DialogComfirmComponent, {
+      width: '600px',
+      panelClass: 'mat-dialog-class',
+      data: {
+        title: 'Atualizar Curso',
+        description: 'Voce realmente deseja continuar?',
+        isOnlyConfirm: true
+      }
+    }).afterClosed().subscribe(async (res) => {
+      if (res) {
+        try {
+          await this.service.update(this.courseId, course);
+        } catch (error) {
+          console.error('Course Update - Error ocurred', error);
+        }
+      }
+
+    })
   }
 
   onRedirect(id: number) {
