@@ -1,8 +1,13 @@
-<h1 mat-dialog-title>Delete file</h1>
-<div mat-dialog-content>
-    Would you like to delete cat.jpeg?
-</div>
-<div mat-dialog-actions>
-    <button mat-button mat-dialog-close>No</button>
-    <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+<div class="dialog">
+    <h1 mat-dialog-title>{{title}}</h1>
+    <div mat-dialog-content>
+        {{description}}
+    </div>
+    <div mat-dialog-actions class="d-flex justify-content-end">
+        <app-button *ngIf="!isOnlyConfirm" mat-button mat-dialog-close [name]="'Voltar'"></app-button>
+        <app-button *ngIf="isOnlyConfirm" mat-button [mat-dialog-close]="false" [name]="'Cancelar'">
+        </app-button>
+        <app-button *ngIf="isOnlyConfirm" mat-button [mat-dialog-close]="true" cdkFocusInitial [name]="'Confirmar'">
+        </app-button>
+    </div>
 </div>
