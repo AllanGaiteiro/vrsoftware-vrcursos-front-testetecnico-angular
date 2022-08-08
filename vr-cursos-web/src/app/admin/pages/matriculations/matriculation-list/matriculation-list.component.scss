@@ -1,12 +1,22 @@
 @import '../../../../../styles/variables.scss';
 
-mat-card {
+
+mat-card,mat-paginator  {
     width: 900px;
-    height: 622px;
     background-color: $primary-color;
     margin: 0 auto;
     padding: 0;
+    color: white;
+
+}
+mat-card {
+    height: 622px;
+    margin: 0 auto;
+    padding: 0;
     border-radius: $border-radius;
+}
+mat-paginator{
+    font-size: 12px;
 }
 
 table {

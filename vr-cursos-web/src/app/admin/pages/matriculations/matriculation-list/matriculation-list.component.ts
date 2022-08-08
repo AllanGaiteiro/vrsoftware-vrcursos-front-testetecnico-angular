@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Matriculation } from 'src/app/core/models/matriculation/entities/matriculation.entity';
 import { DISPLAYED_COLUMNS } from 'src/app/core/utils/displayed-columns';
 import { DisplayedColumns } from "src/app/core/models/common/DisplayedColumns";
 import { MatriculationService } from '../matriculation.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-matriculation-list',
@@ -17,8 +20,15 @@ export class MatriculationListComponent implements OnInit {
   courseSubscription?: Subscription;
   displayedColumns: string[] = [];
   matriculations: Matriculation[] = [];
+  dataSource?: MatTableDataSource<Matriculation>;
+
+  @ViewChild(MatPaginator)
+  paginator?: MatPaginator;
+  @ViewChild(MatSort)
+  sort?: MatSort;
   constructor(private service: MatriculationService, private router: Router) {
     this.displayedColumns = this.getDisplayedColumns();
+    this.getMatriculations();
   }
 
   ngOnInit(): void {
@@ -30,6 +40,21 @@ export class MatriculationListComponent implements OnInit {
       const matriculations = await this.service.find();
       if (matriculations.length > 0) {
         this.matriculations = matriculations;
+        this.dataSource = new MatTableDataSource(matriculations);
+        if (this.paginator) {
+          this.dataSource.paginator = this.paginator;
+        }
+        if (this.sort) {
+          this.dataSource.sortingDataAccessor = (item, property) => {
+            switch (property) {
+              case 'course': return item.course.description;
+              case 'student': return item.student.name;
+              case 'id': return item.id;
+              default: return item.id;
+            }
+          };
+          this.dataSource.sort = this.sort;
+        }
       }
     } catch (error) {
       console.error('Matriculation Find - Error ocurred - ', error)
