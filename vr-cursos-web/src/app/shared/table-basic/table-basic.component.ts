@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,7 @@ import { Matriculation } from 'src/app/core/models/matriculation/entities/matric
   templateUrl: './table-basic.component.html',
   styleUrls: ['./table-basic.component.scss'],
 })
-export class TableBasicComponent implements OnInit {
+export class TableBasicComponent implements OnInit, AfterViewInit {
   @Input() displayedColumnsObj: DisplayedColumns[] = [];
   @Input() data: any[] = [];
   @Input() actions: string[] = [];
@@ -21,27 +21,19 @@ export class TableBasicComponent implements OnInit {
   displayedColumns: string[] = []
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
-  @ViewChild(MatPaginator, { static: true }) paginator?: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort?: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor() {
-    if (this.paginator) {
-      this.dataSource.paginator = this.paginator;
-    }
-    if (this.sort) {
-      this.dataSource.sort = this.sort;
-    }
+  }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   ngOnInit(): void {
     this.displayedColumns = this.getDisplayedColumns();
     if (this.data.length > 0) {
       this.dataSource = new MatTableDataSource(this.data);
-      if (this.paginator) {
-        this.dataSource.paginator = this.paginator;
-      }
-      if (this.sort) {
-        this.dataSource.sort = this.sort;
-      }
     }
 
   }
