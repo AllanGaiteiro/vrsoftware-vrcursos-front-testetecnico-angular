@@ -14,7 +14,8 @@
                     </span>
 
                     <!-- Column Actions--->
-                    <div class="d-flex justify-content-between" *ngIf="column.name === 'actions'">
+                    <div class="d-flex justify-content-{{actions.length > 1 ?'between':'end'}}"
+                        *ngIf="column.name === 'actions'">
                         <app-button *ngIf="actions?.includes('view')" [actionName]="'view'"
                             (click)="onRedirect(element.id)"></app-button>
                         <app-button *ngIf="actions?.includes('add')" [actionName]="'add'" (click)="onAdd(element.id)">

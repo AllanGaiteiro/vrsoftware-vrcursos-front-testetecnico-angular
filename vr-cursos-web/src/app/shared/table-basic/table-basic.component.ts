@@ -14,7 +14,7 @@ import { Matriculation } from 'src/app/core/models/matriculation/entities/matric
 export class TableBasicComponent implements OnInit {
   @Input() displayedColumnsObj: DisplayedColumns[] = [];
   @Input() data: any[] = [];
-  @Input() actions?: string[] = [];
+  @Input() actions: string[] = [];
   @Output() newEventDelete = new EventEmitter<number>();
   @Output() newEventRedirect = new EventEmitter<number>();
   @Output() newEventAdd = new EventEmitter<number>();
