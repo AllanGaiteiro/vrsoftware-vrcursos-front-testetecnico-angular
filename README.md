@@ -2,7 +2,7 @@
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/AllanGaiteiro/NestJs-Angular-TesteTecnico-VR-Cursos?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/AllanGaiteiro/NestJs-Angular-TesteTecnico-VR-Cursos?style=for-the-badge)
-
+[![Link para o Prototipo](https://img.shields.io/badge/Prototipo-ffffff?style=for-the-badge&color=F24E1E)](https://www.figma.com/proto/xySk0dp8tY0y0SQQG0CUEu/vr-courses?node-id=10%3A479&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=10%3A235)
 ### Projeto Tecnico
 
 Projeto Proposto para testar abilidade tecnicas para uma vaga de Programador Fullstack.
@@ -46,7 +46,7 @@ Informações Importantes
 
 Escolhi Uma interface simples e minimalista, para facilitar vou deixar o link do prototipo de alta fidelidade
 
-Prototipo: [clique aki](https://www.figma.com/proto/xySk0dp8tY0y0SQQG0CUEu/vr-courses?node-id=10%3A479&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=10%3A235)
+[![Link para o Prototipo](https://img.shields.io/badge/Prototipo-ffffff?style=for-the-badge&color=F24E1E)](https://www.figma.com/proto/xySk0dp8tY0y0SQQG0CUEu/vr-courses?node-id=10%3A479&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=10%3A235)
 
 ## Installation
 
